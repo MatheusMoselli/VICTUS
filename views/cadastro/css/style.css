@@ -1,14 +1,16 @@
 body {
-  font-family: "Roboto", sans-serif;
-  background-color: #f8fafb; }
+  font-family: "Bahnschrift", sans-serif;
+  background-color: #066566; }
 
 p {
-  color: #b3b3b3;
+  color: white;
   font-weight: 300; }
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Roboto", sans-serif; }
+  font-family: "Bahnschrift", sans-serif;
+  color: white;
+   }
 
 a {
   -webkit-transition: .3s all ease;
@@ -45,7 +47,7 @@ h2 {
       transition: .3s all ease; }
     .content .contents .form-group input, .content .bg .form-group input {
       background: transparent;
-      border-bottom: 1px solid #ccc; }
+      border-bottom: 1px solid white; }
     .content .contents .form-group.first, .content .bg .form-group.first {
       border-top-left-radius: 7px;
       border-top-right-radius: 7px; }
@@ -56,7 +58,7 @@ h2 {
       font-size: 12px;
       display: block;
       margin-bottom: 0;
-      color: #b3b3b3; }
+      color: white; }
     .content .contents .form-group.focus, .content .bg .form-group.focus {
       background: #fff; }
     .content .contents .form-group.field--not-empty label, .content .bg .form-group.field--not-empty label {
@@ -76,7 +78,7 @@ h2 {
   background-position: center; }
 
 .content a {
-  color: #888;
+  color: white;
   text-decoration: underline; }
 
 .content .btn {
@@ -131,7 +133,7 @@ h2 {
   .control .caption {
     position: relative;
     top: .2rem;
-    color: #888; }
+    color: white; }
 
 .control input {
   position: absolute;
@@ -155,7 +157,7 @@ h2 {
   background: #ccc; }
 
 .control input:checked ~ .control__indicator {
-  background: #38d39f; }
+  background: #4cafa0; }
 
 .control:hover input:not([disabled]):checked ~ .control__indicator,
 .control input:checked:focus ~ .control__indicator {
