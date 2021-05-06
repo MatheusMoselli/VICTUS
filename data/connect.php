@@ -1,8 +1,10 @@
 <?php
-  $host = "fdb20.awardspace.net";
-  $user = "3827799_victus";
-  $password = "5NG:*}L;3Dw?qR?x";
-  $database = "3827799_victus";
+  // LOCALHOST != SERVIDOR AWARDSPACE
+  // Não alterar lá!
+  $host = "localhost";
+  $user = "root";
+  $password = "";
+  $database = "victus";
 
   $connection = new MySQLi("$host", "$user", "$password", "$database");
 
@@ -10,7 +12,6 @@
 
   if ($connection -> connect_error) {
     echo "ERRO DE CONEXÃO";
-} else {
-    echo "CONEXAO BEM SUCEDIDA";
+    exit();
 }
 ?>

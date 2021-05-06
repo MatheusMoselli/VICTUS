@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -26,7 +26,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 order-md-2">
-          <img src="images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
+          <img src="images/undraw_file_sync_ot38.svg" method="post" enctype="multipart/form-data" alt="Image" class="img-fluid">
         </div>
         <div class="col-md-6 contents">
           <div class="row justify-content-center">
@@ -35,27 +35,67 @@
               <h3>Crie sua conta no <strong>Victus</strong></h3>
               <p class="mb-4">Junte pontos reciclando e vá em eventos!</p>
             </div>
-            <form action="#" method="post">
+            <form action="register-user.php" method="post">
               <div class="form-group first">
                 <label for="username">Email</label>
-                <input type="text" class="form-control" id="username">
+                <input type="text" name="email" class="form-control" id="username">
+
+              </div>
+              <div class="form-group">
+                <label for="name">Nome</label>
+                <input type="text" name="name" class="form-control" id="name">
+
+              </div>
+              <div class="form-group cpf-mask">
+                <label for="CPF">CPF</label>
+                <input type="text" name="CPF" class="form-control" id="CPF">
 
               </div>
               <div class="form-group last mb-4">
                 <label for="password">Senha</label>
-                <input type="password" class="form-control" id="password">
+                <input type="password" name="password" class="form-control" id="password">
                 
               </div>
+              <div class="form-group last mb-4">
+                <label for="confirm-password">Confirmar Senha</label>
+                <input type="password" name="confirm-password" class="form-control" id="confirm-password">
+                
+              </div>
+              <p>Data de Nascimento</p>
+              <div class="form-row">
+
+                <div class="form-group col-md-3">
+                  <label for="day">Dia</label>
+                  <input type="number" name="day" class="form-control" id="day">
+  
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="month">Mês</label>
+                  <input type="number" name="month" class="form-control" id="month">
+  
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="year">Ano</label>
+                  <input type="number" name="year" class="form-control" id="year">
+  
+                </div>
+              </div>
               
-              <div class="d-flex mb-5 align-items-center">
+              <div class="d-flex mb-5">
                 <label class="control control--checkbox mb-0"><span class="caption">Lembre-se de mim</span>
                   <input type="checkbox" checked="checked"/>
                   <div class="control__indicator"></div>
                 </label>
-                <span class="ml-auto"><a href="#" class="forgot-pass">Esqueceu a senha?</a></span> 
+                <span class="ml-auto">
+                  <a href="#" class="forgot-pass">Esqueceu a senha?</a> <br />
+                  <a href="#" class="forgot-pass">É uma empresa?</a>  <br />
+                  <a href="#" class="forgot-pass">É um ponto de coleta?</a> <br />
+                  <a href="#" class="forgot-pass">Quer ser premium?</a>
+                </span>
+
               </div>
 
-              <input type="submit" value="Entrar" class="btn text-black btn-block btn-light">
+              <input type="submit" value="Criar conta" class="btn text-black btn-block btn-light">
 
             
               </div>
