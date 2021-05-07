@@ -1,12 +1,13 @@
 <?php
   include 'user.class.php';
 
-  class Client extends User{
+  class Client {
     private $id;
     private $CPF;
     private $birthDay;
     private $birthMonth;
     private $birthYear;
+    private $user;
 
     public function getId() {
       return $this->id;
@@ -47,5 +48,12 @@
     public function setBirthYear($birthYear) {
       $this->birthYear = $birthYear;
     }
+
+    public function getUser() {
+      return $this->user;
+    }
+
+    public function setUser($user) {
+      $this->user = $user;
+    }
   }
-?>

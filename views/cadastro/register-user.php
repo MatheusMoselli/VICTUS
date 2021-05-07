@@ -1,17 +1,23 @@
 <?php
-  require_once '../../model/client.class.php';
-  include '../../data/connect.php';
-  include '../../data/client.php';
-  include '../../services/client.php';
+require_once "../../config.php";
+require_once SITE_ROOT . "/model/client.class.php";
+require_once SITE_ROOT . "/model/user.class.php";
+require_once SITE_ROOT . "/services/impl/clientService.php";
 
-  $client = new Client();
-  $client->setEmail($_POST["email"]);
-  $client->setName($_POST["name"]);
-  $client->setPassword($_POST["password"]);
-  $client->setCPF($_POST["CPF"]);
-  $client->setBirthDay($_POST["day"]);
-  $client->setBirthMonth($_POST["month"]);
-  $client->setBirthYear($_POST["year"]);
+$clientService = new clientService();
 
-  createClient($client, $connection);
-?>
+$client = new Client();
+$user = new User();
+$user->setEmail($_POST["email"]);
+$user->setName($_POST["name"]);
+
+$passwordEncrypted = password_hash($_POST["password"], PASSWORD_DEFAULT);
+$user->setPassword($passwordEncrypted);
+
+$client->setCPF($_POST["CPF"]);
+$client->setBirthDay($_POST["day"]);
+$client->setBirthMonth($_POST["month"]);
+$client->setBirthYear($_POST["year"]);
+$client->setUser($user);
+
+$clientService->create($client);

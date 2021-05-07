@@ -1,23 +1,25 @@
 <?php
-  session_start();
-  include '../../data/connect.php';
-  include '../../data/process.php';
-  include '../../data/user.php';
-  include '../../services/user.php';
+session_start();
+include_once '../../config.php';
+include_once SITE_ROOT . "/services/impl/userService.php";
+include_once SITE_ROOT . "/model/user.class.php";
 
-  $email = $_POST['email'];
-  $pass = $_POST['password'];
-  $pass = base64_encode($pass);
+$email = $_POST['email'];
+$pass = $_POST['password'];
 
-  $result_user = getUser($email, $pass, $connection);
+$user = new User();
+$user->setEmail($email);
+$user->setPassword($pass);
 
-  if($result_user != null) {
-    $_SESSION['idUser'] = $result_user['Id'];
-    $_SESSION['name'] = $result_user['Nome'];
-    $_SESSION['email'] = $result_user['Email'];
+$userService = new userService();
+$result_user = $userService->login($user);
 
-    header("Location: ../restricted/index.php");
-  } else {
-    header("Location: ../index.html");
-  }
-?>
+if ($result_user != null) {
+  $_SESSION['idUser'] = $result_user['Id'];
+  $_SESSION['name'] = $result_user['Nome'];
+  $_SESSION['email'] = $result_user['Email'];
+
+  header("Location: ../restricted/index.php");
+} else {
+  header("Location: ./index.html");
+}
