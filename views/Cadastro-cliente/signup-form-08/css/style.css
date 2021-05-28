@@ -108,7 +108,7 @@ h2 {
 
 .content a {
   color: white;
-  text-decoration: underline; }
+  text-decoration: none; }
 
 .content .btn {
   height: 54px;
