@@ -441,7 +441,8 @@ background-color: #066566;
 
 #hero .carousel-item::before {
   content: '';
-  background-color: rgba(45, 103, 60, 0.8);
+  background-color: #4cafa0;
+  opacity: 0.6;
 }
 
 #hero .carousel-container {
