@@ -1,6 +1,8 @@
 <?php
 include_once "../../config.php";
 include_once SITE_ROOT . "/services/iUserService.php";
+include_once SITE_ROOT . "/services/impl/clientService.php";
+include_once SITE_ROOT . "/services/colectPointService.php";
 include_once SITE_ROOT . "/data/impl/userRepository.php";
 
 class userService implements iUserService
@@ -30,5 +32,28 @@ class userService implements iUserService
     $id = $userRepository->create($user);
     $user->setId($id);
     return $user;
+  }
+
+  function typeOfLoggedUser($result_user)
+  {
+    $clientService = new clientService();
+    $colectPointService = new colectPointService();
+
+    $id = $result_user['Id'];
+
+    $isClient = $clientService->verifyIfExists($id);
+
+    if ($isClient) {
+      return 1;
+    }
+
+
+    $isCp = $colectPointService->verifyIfExists($id);
+
+    if ($isCp) {
+      return 2;
+    }
+
+    return;
   }
 }

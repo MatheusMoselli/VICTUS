@@ -1,5 +1,6 @@
 <?php
-  interface iClientRepository {
-    function save($client);
-  }
-?>
+interface iClientRepository
+{
+  function save($client);
+  function getByUserId($userId);
+}

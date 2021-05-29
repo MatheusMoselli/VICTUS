@@ -21,7 +21,21 @@ class clientService implements iClientService
 
       header("Location: ../login/index.html");
     } catch (Exception) {
-      // Tratamento de erro
+      // code...
+    }
+  }
+
+  function verifyIfExists($userId)
+  {
+    try {
+      $clientRepository = new clientRepository();
+      $result = $clientRepository->getByUserId($userId);
+
+      if ($result->num_rows != 0) {
+        return true;
+      }
+    } catch (Exception) {
+      // code...
     }
   }
 }

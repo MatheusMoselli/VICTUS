@@ -26,4 +26,14 @@ class clientRepository implements iClientRepository
 
     $sql->execute();
   }
+
+  function getByUserId($userId)
+  {
+    $connection = connect();
+
+    $consult = "SELECT * FROM Cliente WHERE IdUsuario = '$userId'";
+    $result = $connection->query($consult);
+
+    return $result;
+  }
 }

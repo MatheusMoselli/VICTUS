@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css" />
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>Victus - Cadastro</title>
+  </head>
+  <body>
+    <!-- parte de cima -->
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 order-md-2">
+            <img
+              style="width: 75%; margin-left: 15%"
+              src="images/ponto-coleta.png"
+              alt="Image"
+              class="img-fluid"
+            />
+          </div>
+          <div class="col-md-6 contents">
+            <div class="row justify-content-center">
+              <div style="margin-left: 10%; margin-right: 10%">
+                <h1 style="margin-top: 10%" class="mb-4">
+                  Seja um ponto de coleta!
+                </h1>
+                <h5>
+                  Com o Victus, é possível ir a eventos juntando seus resíduos
+                  recicláveis! Criando uma conta conosco, você terá uma nova
+                  motivação para reciclar.
+                </h5>
+                <a
+                  style="
+                    margin-bottom: 10%;
+                    margin-top: 5%;
+                    max-height: 10%;
+                    text-decoration: none;
+                    color: black;
+                  "
+                  type="submit"
+                  role="button"
+                  class="btn text-black btn-block btn-light"
+                  href="#perguntas"
+                  >Saiba mais</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- duvidas frequentes -->
+    <section id="perguntas">
+      <div class="container">
+        <h3 style="margin-bottom: 3%">Dúvidas frequentes</h3>
+        <div class="perguntas">
+          <div class="question">
+            <input type="checkbox" id="question-1" />
+            <label for="question-1">Primeira pergunta?</label>
+            <div class="answer">Primeira resposta.</div>
+          </div>
+
+          <div class="question">
+            <input type="checkbox" id="question-2" />
+            <label for="question-2">Segunda pergunta?</label>
+            <div class="answer">Segunda resposta.</div>
+          </div>
+
+          <div class="question">
+            <input type="checkbox" id="question-1" />
+            <label for="question-1">Terceira pergunta?</label>
+            <div class="answer">Terceira resposta.</div>
+          </div>
+
+          <div class="question">
+            <input type="checkbox" id="question-2" />
+            <label for="question-2">Quarta pergunta?</label>
+            <div class="answer">Quarta resposta.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- formulario -->
+    <div class="container">
+      <img
+        style="max-width: 33%; margin-left: 0.1%; margin-right: 7%"
+        align="right"
+        src="images/desenho-cadastro.png"
+      />
+
+      <div class="col-md-6 contents">
+        <div class="mb-4">
+          <h3>Crie sua conta no <strong>Victus</strong></h3>
+        </div>
+        <form style="color: white" action="register-point.php" method="post">
+          <div class="form-group first">
+            <label for="name">Nome</label>
+            <input type="text" class="form-control" id="name" name="name" />
+          </div>
+          <div class="form-group">
+            <label for="CNPJ">CNPJ</label>
+            <input type="text" class="form-control" id="CNPJ" name="CNPJ" />
+          </div>
+          <div class="form-group">
+            <label for="location">Localização</label>
+            <input
+              type="text"
+              class="form-control"
+              id="location"
+              name="location"
+              placeholder="Ex:  Bairro ZZZZ, Rua XXXXX, NºYYY"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" />
+          </div>
+          <div class="form-group last mb-4">
+            <label for="password">Senha</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+            />
+          </div>
+          <div class="d-flex mb-5 align-items-center">
+            <input
+              style="margin-bottom: 10%; margin-top: 5%"
+              type="submit"
+              value="Criar conta"
+              class="btn text-black btn-block btn-light"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

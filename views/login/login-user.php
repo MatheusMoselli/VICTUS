@@ -13,13 +13,25 @@ $user->setPassword($pass);
 
 $userService = new userService();
 $result_user = $userService->login($user);
+$typeUser = $userService->typeOfLoggedUser($result_user);
 
 if ($result_user != null) {
   $_SESSION['idUser'] = $result_user['Id'];
   $_SESSION['name'] = $result_user['Nome'];
   $_SESSION['email'] = $result_user['Email'];
 
-  header("Location: ../restricted/index.php");
+  switch ($typeUser) {
+    case 1:
+      header("Location: ../restricted/index-user.php");
+      break;
+    case 2:
+      header("Location: ../restricted/index-cp.php");
+      break;
+    default:
+      //header("Location: ./index.html");
+      break;
+  }
+  //header("Location: ../restricted/index-user.php");
 } else {
-  header("Location: ./index.html");
+  //header("Location: ./index.html");
 }
