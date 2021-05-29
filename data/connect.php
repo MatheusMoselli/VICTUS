@@ -3,10 +3,10 @@ function connect()
 {
   // LOCALHOST != SERVIDOR AWARDSPACE
   // Não alterar lá!
-  $host = "localhost";
-  $user = "root";
-  $password = "";
-  $database = "victus";
+  $host = "us-cdbr-east-04.cleardb.com";
+  $user = "bbd8cf2730dde2";
+  $password = "403fb06d";
+  $database = "heroku_0f0d2d3ad562bfd";
 
   $connection = new MySQLi("$host", "$user", "$password", "$database");
 
