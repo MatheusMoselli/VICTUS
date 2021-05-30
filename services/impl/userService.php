@@ -3,6 +3,7 @@ include_once "../../config.php";
 include_once SITE_ROOT . "/services/iUserService.php";
 include_once SITE_ROOT . "/services/impl/clientService.php";
 include_once SITE_ROOT . "/services/colectPointService.php";
+include_once SITE_ROOT . "/services/companyService.php";
 include_once SITE_ROOT . "/data/impl/userRepository.php";
 
 class userService implements iUserService
@@ -38,6 +39,7 @@ class userService implements iUserService
   {
     $clientService = new clientService();
     $colectPointService = new colectPointService();
+    $companyService = new companyService();
 
     $id = $result_user['Id'];
 
@@ -52,6 +54,12 @@ class userService implements iUserService
 
     if ($isCp) {
       return 2;
+    }
+
+    $isCompany = $companyService->verifyIfExists($id);
+
+    if ($isCompany) {
+      return 3;
     }
 
     return;

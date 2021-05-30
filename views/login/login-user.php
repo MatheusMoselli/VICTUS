@@ -27,11 +27,13 @@ if ($result_user != null) {
     case 2:
       header("Location: ../restricted/index-cp.php");
       break;
+    case 3:
+      header("Location: ../restricted/index-company.php");
+      break;
     default:
-      //header("Location: ./index.html");
+      header("Location: ./index.html");
       break;
   }
-  //header("Location: ../restricted/index-user.php");
 } else {
-  //header("Location: ./index.html");
+  header("Location: ./index.html");
 }
