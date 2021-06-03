@@ -22,13 +22,13 @@ if ($result_user != null) {
 
   switch ($typeUser) {
     case 1:
-      header("Location: ../restricted/index-user.php");
+      header("Location: ../dashboard-cliente/template.php");
       break;
     case 2:
       header("Location: ../restricted/index-cp.php");
       break;
     case 3:
-      header("Location: ../restricted/index-company.php");
+      header("Location: ../dashboard-parceiro/template.php");
       break;
     default:
       header("Location: ./index.html");

@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+if (
+  (!isset($_SESSION['idUser']) == true) &&
+  (!isset($_SESSION['name']) == true) &&
+  (!isset($_SESSION['email']) == true)
+) {
+  unset($_SESSION['idUser']);
+  unset($_SESSION['name']);
+  unset($_SESSION['password']);
+  header("Location: ../index.html");
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -34,20 +49,20 @@
         <ul class="nav">
           <li class="nav-item active  ">
             <a style="background-color: white; color: black;" class="nav-link" href="#0">
-            <!--  <i class="material-icons">dashboard</i> -->
-              <p>Tabela de pontos</p>
+              <!--  <i class="material-icons">dashboard</i> -->
+              <p>-s</p>
             </a>
           </li>
           <li class="nav-item active  ">
             <a style="background-color: white; color: black;" class="nav-link" href="#0">
-            <!--  <i class="material-icons">dashboard</i> -->
-              <p>Pagamento</p>
+              <!--  <i class="material-icons">dashboard</i> -->
+              <p>-</p>
             </a>
           </li>
           <li class="nav-item active  ">
             <a style="background-color: white; color: black;" class="nav-link" href="#0">
-            <!--  <i class="material-icons">dashboard</i> -->
-              <p>Histórico de eventos</p>
+              <!--  <i class="material-icons">dashboard</i> -->
+              <p>-</p>
             </a>
           </li>
           <!-- your sidebar here -->
@@ -57,16 +72,16 @@
     <div style="background-color: #066566;" class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
- 
-      
-            <div  class="boas-vindas">
-              <div class="row">
-                <div class="col-12 .col-md-8">
-            <h3 style="color: white;">Bem vindo, [       ]!</h3>
-               </div>
-               <div class="col-6 .col-md-4">
-            <h4 style="color: white;" >Você tem _____ pontos</h4>
-              </div>
+
+
+        <div class="boas-vindas">
+          <div class="row">
+            <div class="col-12 .col-md-8">
+              <h3 style="color: white;">Bem vindo, <?php echo $_SESSION['name'] ?>!</h3>
+            </div>
+            <div class="col-6 .col-md-4">
+              <h4 style="color: white;">Conta empresarial</h4>
+            </div>
           </div>
 
 
@@ -80,7 +95,7 @@
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:;">
-                  
+
                 </a>
               </li>
               <!-- your navbar here -->
@@ -93,29 +108,25 @@
         <div class="container-fluid">
           <!-- your content here -->
         </div>
-        <h3 style="margin-top: 15%; margin-left: 5%; color: white;">Promoções</h3>
-        <div class="card" style="width: 18rem; margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: white;">
-  <img class="card-img-top" src="assets/img/new_logo.png" alt="Card image cap">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
+        <h3 style="margin-top: 15%; margin-left: 5%; color: white;">Seus eventos</h3>
+        <div class="card" style="width: 18rem; margin-left: 5%; background-color: #4cafa0; color: white;">
+          <div class="card-body">
+            <h5 style="color: white;" class="card-title">Ver o foguete chinês cair</h5>
+            <p class="card-text">15/05/2021</p>
+            <a style="color: black;" href="#" class="btn btn-light">Moderar</a>
+          </div>
+        </div>
 
-<h3 style="margin-top: 5%; margin-left: 5%; color: white;">Eventos em alta</h3>
-        <div class="card" style="width: 18rem; margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: white;">
-  <img class="card-img-top" src="assets/img/new_logo.png" alt="Card image cap">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
+        <h3 style="margin-top: 5%; margin-left: 5%; color: white;">Criar um evento</h3>
+        <div class="card" style="width: 18rem; margin-left: 5%; background-color: #4cafa0; color: white;">
+          <div class="card-body">
+            <h5 style="color: white;" class="card-title">Festa</h5>
+            <p class="card-text">Afinal, tudo merece um festejo!</p>
+            <a style="color: black;" href="#" class="btn btn-light">Criar</a>
+          </div>
+        </div>
 
-<h3 style="margin-top: 5%; margin-left: 5%; color: white;">Recomendados para você</h3>
-        <div class="card" style="width: 18rem; margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: white;">
-  <img class="card-img-top" src="assets/img/new_logo.png" alt="Card image cap">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
+
       </div>
       <footer class="footer">
         <div class="container-fluid">
