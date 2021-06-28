@@ -77,6 +77,12 @@
     <script src="js/main.js"></script>
 
     <script>
+      $(document).ready(function () {
+        if(sessionStorage.getItem("token")) {
+          window.location.href="../dashboard-cliente/examples/dashboard.html"
+        };
+      });
+
       $("#submit").click(function () {
         let email = $("#email").val();
         let password = $("#password").val();
@@ -93,7 +99,8 @@
           url: "https://victusreciclagem-api.herokuapp.com/user/login",
           contentType: "application/json",
           success: function(data, status, xhr) {
-            console.log(data);
+            sessionStorage.setItem("token", data);
+            window.location.href="../dashboard-cliente/examples/dashboard.html"
           },
           error: function(data, status, xhr) {
             console.log(data);
