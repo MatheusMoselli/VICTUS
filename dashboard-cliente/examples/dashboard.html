@@ -152,7 +152,7 @@ The above copyright notice and this permission notice shall be included in all c
                     <a class="dropdown-item" href="#">Profile</a>
                     <a class="dropdown-item" href="#">Settings</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Log out</a>
+                    <a class="dropdown-item" href="#" id="logout">Log out</a>
                   </div>
                 </li>
               </ul>
@@ -190,41 +190,15 @@ The above copyright notice and this permission notice shall be included in all c
                 <div style="margin-left: 12%;" class="card card-stats">
                   <p style="margin-top: 5%; margin-left: 10%;" id="name"></p>
                   <p style="margin-left: 10%;">partiu reciclar?</p>
-                  <p style="margin-bottom: 5%; margin-left: 10%;" id="points"></p>
+                  <p style="margin-bottom: 5%; margin-left: 10%;">pontos: <strong id="points"></strong></p>
                 </div>
 
 
                 <h3 style="margin-top: 15%; margin-left: 5%; color: white;">Salvos</h3>
 
-            <div class="card-group" style="width: 350%;">
-                <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Manifestação</strong></h4> <h5><strong>14/06/2021</strong></h5>
+            <div class="card-group" id="salvos" style="width: 350%;">
+              
             </div>
-          </div>
-            <p class="card-text">Lutaremos pelos nossos direitos!</p>
-
-            <button type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</button>
-          </div>
-        </div>
-
-<div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Cover Tim Maia</strong></h4> <h5><strong>15/06/2021</strong></h5>
-            </div>
-          </div>
-            <p class="card-text">Venha cantar e sofrer!</p>
-
-            <button type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</button>
-          </div>
-        </div>
-
-
-      </div>
 
 
         <h3 style="margin-top: 10%; margin-left: 5%; color: white;">Eventos em alta</h3>
@@ -382,8 +356,6 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
     <!-- Library for adding dinamically elements -->
     <script src="../assets/js/plugins/arrive.min.js"></script>
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
     <!-- Chartist JS -->
     <script src="../assets/js/plugins/chartist.min.js"></script>
     <!--  Notifications Plugin    -->
@@ -415,9 +387,60 @@ The above copyright notice and this permission notice shall be included in all c
             }
           },
         });
+
+        $.ajax({
+          dataType: "json",
+          type: "GET",
+          url: "https://victusreciclagem-api.herokuapp.com/user/my_events",
+          headers: { Authorization: "Bearer " + token },
+          contentType: "application/json",
+          success: function (data, status, xhr) {
+            data.forEach(obj => {
+              let [date, time] = obj.event_receiver.date.split("T");
+
+              let div = document.createElement("div");
+              div.classList.add="card"
+              div.style.marginTop="3%";
+              div.style.marginLeft="5%";
+              div.style.backgroundColor="#4cafa0";
+              div.style.color="black";
+              div.innerHTML=
+                `
+                <div class="card-body">
+                  <div class="container"> 
+                    <div class="row">
+                      <h4 style="margin-right: 10%"><strong>${obj.event_receiver.name}</strong></h4>
+                      <h5><strong>${date}</strong></h5>  
+                    </div>
+                  </div>
+                  <p class="card-text">${obj.event_receiver.address.city}</p>
+                  <button type="button" class="btn btn-light" style="color: black; background-color: white" id="${obj.event_receiver._id}">Ver mais</button>
+                </div>
+                `
+
+                document.getElementById("salvos").appendChild(div);
+            })
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 401) {
+              window.location.href = "../../401.html";
+            }
+
+            let err = document.createElement("p");
+            err.style.color = "white";
+            err.style.marginLeft = "5%";
+            err.innerText = data.responseJSON.error;
+            document.getElementById("salvos").appendChild(err);
+          },
+        });
       });
     </script>
-    <script>
+    <script> 
+      $("#logout").click(function () {
+        sessionStorage.removeItem("token");
+        window.location.href="../../index.html";
+      });
+
       $(document).ready(function () {
         $().ready(function () {
           $sidebar = $(".sidebar");

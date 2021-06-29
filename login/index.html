@@ -37,10 +37,27 @@
               <p class="mb-4" id="err"></p>
             </div>
             <div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="user_type" id="client" value="client" checked>
+                <label class="form-check-label" for="client" style="color: white">
+                  Cliente
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="user_type" id="company" value="company">
+                <label class="form-check-label" for="company" style="color: white">
+                  Empresa
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="user_type" id="point" value="point">
+                <label class="form-check-label" for="point" style="color: white">
+                  Ponto de coleta
+                </label>
+              </div>
               <div class="form-group first">
                 <label for="email">Email</label>
                 <input type="text" class="form-control" name="email" id="email">
-
               </div>
               <div class="form-group last mb-4">
                 <label for="password">Senha</label>
@@ -49,10 +66,6 @@
               </div>
               
               <div class="d-flex mb-5 align-items-center">
-                <label class="control control--checkbox mb-0"><span class="caption">Lembre-se de mim</span>
-                  <input type="checkbox" checked="checked"/>
-                  <div class="control__indicator"></div>
-                </label>
                 <span class="ml-auto"><a href="#" class="forgot-pass">Esqueceu a senha?</a></span> 
               </div>
 
@@ -92,21 +105,59 @@
           "password": "${password}"
         }`;
 
-        $.ajax({
-          dataType: "json",
-          data: data,
-          type: "POST",
-          url: "https://victusreciclagem-api.herokuapp.com/user/login",
-          contentType: "application/json",
-          success: function(data, status, xhr) {
-            sessionStorage.setItem("token", data);
-            window.location.href="../dashboard-cliente/examples/dashboard.html"
-          },
-          error: function(data, status, xhr) {
-            console.log(data);
-            $("#err").text(data.responseJSON.error);
-          }
-        })
+        let val = $('input[name="user_type"]:checked').val();
+
+        switch (val) {
+          case "client":
+            $.ajax({
+              dataType: "json",
+              data: data,
+              type: "POST",
+              url: "https://victusreciclagem-api.herokuapp.com/user/login",
+              contentType: "application/json",
+              success: function(data, status, xhr) {
+                sessionStorage.setItem("token", data);
+                window.location.href="../dashboard-cliente/examples/dashboard.html"
+              },
+              error: function(data, status, xhr) {
+                $("#err").text(data.responseJSON.error);
+              }
+            })
+            break;
+          case "company":
+              $.ajax({
+                dataType: "json",
+                data: data,
+                type: "POST",
+                url: "https://victusreciclagem-api.herokuapp.com/company/login",
+                contentType: "application/json",
+                success: function(data, status, xhr) {
+                  sessionStorage.setItem("token", data);
+                  window.location.href="../dashboard-paceiro/examples/dashboard.html"
+                },
+                error: function(data, status, xhr) {
+                  $("#err").text(data.responseJSON.error);
+                }
+              })
+            break;
+          case "point":
+            $.ajax({
+              dataType: "json",
+              data: data,
+              type: "POST",
+              url: "https://victusreciclagem-api.herokuapp.com/point/login",
+              contentType: "application/json",
+              success: function(data, status, xhr) {
+                sessionStorage.setItem("token", data);
+                window.location.href="../dashboard-coleta/examples/dashboard.html"
+              },
+              error: function(data, status, xhr) {
+                $("#err").text(data.responseJSON.error);
+              }
+            })
+            break;
+        }
+
       });
     </script>
   </body>
