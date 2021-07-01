@@ -152,7 +152,7 @@ The above copyright notice and this permission notice shall be included in all c
                     <a class="dropdown-item" href="#">Profile</a>
                     <a class="dropdown-item" href="#">Settings</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Log out</a>
+                    <a class="dropdown-item" href="#" id="logout">Log out</a>
                   </div>
                 </li>
               </ul>
@@ -165,7 +165,6 @@ The above copyright notice and this permission notice shall be included in all c
           <div class="col-lg-3 col-md-6 col-sm-6" style="margin-top: 10%;">
             <div style="margin-left: 12%;" class="card card-stats">
                   <p style="margin-left: 10%;">Bem vindo!</p>
-                  <p style="margin-top: 5%; margin-left: 10%;" id="name"></p>
                 </div>
               </div>
 
@@ -174,10 +173,11 @@ The above copyright notice and this permission notice shall be included in all c
           <div class="card-body">
             <div class="container">
               <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Total de produtos recebidos:</strong></h4>
+            <h4 style="margin-right: 10%;"><strong>Estatísiticas </strong></h4>
             </div>
           </div>
-            <p class="card-text" id="points"></p> <small>KG</small>
+            <p class="card-text" id="kgs"><small>KG doados</small> </p>
+            <p class="card-text" id="points"><small>Pontos concedidos</small> </p>
           </div>
         </div>
 
@@ -202,9 +202,9 @@ The above copyright notice and this permission notice shall be included in all c
             <h4 style="margin-right: 10%;"><strong>Perfil</strong></h4>
             </div>
           </div>
-            <p class="card-text">empresa</p>
-            <p class="card-text">logradouro</p>
-            <p class="card-text">status</p>
+            <p class="card-text" id="company_name">Empresa: </p>
+            <p class="card-text" id="city">Cidade: </p>
+            <p class="card-text" id="patio">Logradouro: </p>
 
             <button type="button" class="btn btn-light" style="color: black; background-color: white;">Editar</button>
           </div>
@@ -293,8 +293,6 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
     <!-- Library for adding dinamically elements -->
     <script src="../assets/js/plugins/arrive.min.js"></script>
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
     <!-- Chartist JS -->
     <script src="../assets/js/plugins/chartist.min.js"></script>
     <!--  Notifications Plugin    -->
@@ -323,8 +321,11 @@ The above copyright notice and this permission notice shall be included in all c
           headers: { Authorization: "Bearer " + token },
           contentType: "application/json",
           success: function (data, status, xhr) {
-            $("#name").text(data.name);
-            $("#points").text(data.points);
+            document.getElementById("kgs").innerHTML+=`${data.received_pounds}`
+            document.getElementById("points").innerHTML+=`${data.given_points}`
+            document.getElementById("company_name").innerHTML+=`${data.name}`
+            document.getElementById("patio").innerHTML+=`${data.address.patio}`
+            document.getElementById("city").innerHTML+=`${data.address.city}`
           },
           error: function (data, status, xhr) {
             if (data.status == 401) {
