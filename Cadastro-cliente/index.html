@@ -189,17 +189,17 @@
         let email = $("#email").val();
         let password = $("#password").val();
 
-        let data = `{
-          "name": "${name}",
-          "CPF": "${CPF}",
-          "email": "${email}",
-          "password": "${password}",
-          "birthday": "${birthday}"
-        }`;
+        let data = {
+          name,
+          CPF,
+          birthday,
+          email,
+          password,
+        };
 
         $.ajax({
           dataType: "json",
-          data: data,
+          data: JSON.stringify(data),
           type: "POST",
           url: "https://victusreciclagem-api.herokuapp.com/user/create",
           contentType: "application/json",

@@ -44,7 +44,11 @@
                   Seja um parceiro e venda mais!
                 </h1>
                 <h5>
-                  Com a Victus, sua empresa pode se tornar uma patrocinadora de uma prática sustentável e beneficial para a nossa vivência em sociedade, além de dar suporte para que nossos usuários possam receber o melhor serviço possível em troca de pontos acumulados.
+                  Com a Victus, sua empresa pode se tornar uma patrocinadora de
+                  uma prática sustentável e beneficial para a nossa vivência em
+                  sociedade, além de dar suporte para que nossos usuários possam
+                  receber o melhor serviço possível em troca de pontos
+                  acumulados.
                 </h5>
                 <a
                   style="
@@ -152,16 +156,21 @@
 
     <script>
       $("#submit").click(function () {
-        let data = `{
-          "name": "${$("#name").val()}",
-          "CNPJ": "${$("#CNPJ").val()}",
-          "email": "${$("#email").val()}",
-          "password": "${$("#password").val()}"
-        }`;
+        let name = $("#name").val();
+        let CNPJ = $("#CNPJ").val();
+        let email = $("#email").val();
+        let password = $("#password").val();
+
+        let data = {
+          name,
+          CNPJ,
+          email,
+          password,
+        };
 
         $.ajax({
           dataType: "json",
-          data: data,
+          data: JSON.stringify(data),
           type: "POST",
           url: "https://victusreciclagem-api.herokuapp.com/company/create",
           contentType: "application/json",

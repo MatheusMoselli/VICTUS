@@ -44,7 +44,9 @@
                   Seja um ponto de coleta!
                 </h1>
                 <h5>
-                  Se torne um ponto de coleta na Victus, ajude o planeta incentivando a reciclagem e distribuindo pontos para as pessoas!
+                  Se torne um ponto de coleta na Victus, ajude o planeta
+                  incentivando a reciclagem e distribuindo pontos para as
+                  pessoas!
                 </h5>
                 <a
                   style="
@@ -74,22 +76,38 @@
         <div class="perguntas">
           <div class="question">
             <input type="checkbox" id="question-1" />
-            <label for="question-1">O que é um ponto de coleta e como eles funcionam na plataforma?
-</label>
-            <div class="answer">Pontos de Coleta são os locais onde as pessoas levam seu lixo para ser reciclado, quando um ponto de coleta é cadastrado na Victus ele passa a fazer parte de nosso sistema de pontos, ou seja, toda a vez que alguém realizar a entrega de materiais recicláveis em um desses locais eles serão responsáveis pela entrega dos pontos.
-</div>
+            <label for="question-1"
+              >O que é um ponto de coleta e como eles funcionam na plataforma?
+            </label>
+            <div class="answer">
+              Pontos de Coleta são os locais onde as pessoas levam seu lixo para
+              ser reciclado, quando um ponto de coleta é cadastrado na Victus
+              ele passa a fazer parte de nosso sistema de pontos, ou seja, toda
+              a vez que alguém realizar a entrega de materiais recicláveis em um
+              desses locais eles serão responsáveis pela entrega dos pontos.
+            </div>
           </div>
 
           <div class="question">
             <input type="checkbox" id="question-2" />
-            <label for="question-2">Quais são os benefícios de ser um ponto de coleta com a victus? </label>
-            <div class="answer">Sendo um ponto de coleta cadastrado na Victus você será inserido em uma plataforma onde os usuários buscam reciclar, assim aumentando o movimento dos pontos de coleta cadastrados.</div>
+            <label for="question-2"
+              >Quais são os benefícios de ser um ponto de coleta com a victus?
+            </label>
+            <div class="answer">
+              Sendo um ponto de coleta cadastrado na Victus você será inserido
+              em uma plataforma onde os usuários buscam reciclar, assim
+              aumentando o movimento dos pontos de coleta cadastrados.
+            </div>
           </div>
 
           <div class="question">
             <input type="checkbox" id="question-3" />
-            <label for="question-3">O que é necessário para ser um ponto de coleta na Victus? </label>
-            <div class="answer">Qualquer empresa pode se cadastrar como um ponto de coleta.</div>
+            <label for="question-3"
+              >O que é necessário para ser um ponto de coleta na Victus?
+            </label>
+            <div class="answer">
+              Qualquer empresa pode se cadastrar como um ponto de coleta.
+            </div>
           </div>
         </div>
       </div>
@@ -173,25 +191,29 @@
 
     <script>
       $("#submit").click(function () {
-        let data = `{
-          "name": "${$("#name").val()}",
-          "CNPJ": "${$("#CNPJ").val()}",
-          "email": "${$("#email").val()}",
-          "password": "${$("#password").val()}",
-          "address": {
-            "patio": "${$("#patio").val()}",
-            "CEP": "${$("#CEP").val()}",
-            "neighborhood": "${$("#neighborhood").val()}",
-            "city": "${$("#city").val()}",
-            "state": "${$("#state").val()}"
-          }
-        }`;
+        let name = $("#name").val();
+        let CNPJ = $("#CNPJ").val();
+        let email = $("#email").val();
+        let password = $("#password").val();
+        let address = {
+          patio: $("#patio").val(),
+          CEP: $("#CEP").val(),
+          neighborhood: $("#neighborhood").val(),
+          city: $("#city").val(),
+          state: $("#state").val(),
+        };
 
-        console.log(data);
+        let data = {
+          name,
+          CNPJ,
+          email,
+          password,
+          address,
+        };
 
         $.ajax({
           dataType: "json",
-          data: data,
+          data: JSON.stringify(data),
           type: "POST",
           url: "https://victusreciclagem-api.herokuapp.com/point/create",
           contentType: "application/json",

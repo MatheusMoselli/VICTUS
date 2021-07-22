@@ -100,10 +100,10 @@
         let email = $("#email").val();
         let password = $("#password").val();
 
-        let data = `{
-          "email": "${email}",
-          "password": "${password}"
-        }`;
+        let data = {
+          email,
+          password
+        };
 
         let val = $('input[name="user_type"]:checked').val();
 
@@ -111,7 +111,7 @@
           case "client":
             $.ajax({
               dataType: "json",
-              data: data,
+              data: JSON.stringify(data),
               type: "POST",
               url: "https://victusreciclagem-api.herokuapp.com/user/login",
               contentType: "application/json",
@@ -127,7 +127,7 @@
           case "company":
               $.ajax({
                 dataType: "json",
-                data: data,
+                data: JSON.stringify(data),
                 type: "POST",
                 url: "https://victusreciclagem-api.herokuapp.com/company/login",
                 contentType: "application/json",
@@ -143,7 +143,7 @@
           case "point":
             $.ajax({
               dataType: "json",
-              data: data,
+              data: JSON.stringify(data),
               type: "POST",
               url: "https://victusreciclagem-api.herokuapp.com/point/login",
               contentType: "application/json",
