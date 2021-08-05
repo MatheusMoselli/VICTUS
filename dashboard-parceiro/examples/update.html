@@ -201,69 +201,91 @@ The above copyright notice and this permission notice shall be included in all c
                     <img class="img" src="../assets/img/faces/marc.jpg" />
                   </a>
                 </div>
-                <div class="card-body">
-                  <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                  <h4 class="card-title">Alec Thompson</h4>
-
-
-                      <table align="center">
-                        <tr>
-                          <td class="text-left" style="margin-right: 5%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Phasellus bibendum aliquet erat, ut ornare purus malesuada et.</td>
-                          
-                          <td class="text-left" style="margin-left: 5%;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Phasellus bibendum aliquet erat, ut ornare purus malesuada et.</td> 
-                        </tr>
-                       
-                      </table>
-
-
-                <a href="update.html" class="btn btn-primary btn-round">Editar</a>
+                <form>
+                <div class="form-group" style="margin-top: 3%;">
+                  <label class="btn btn-primary" for="exampleFormControlFile1">Envie uma nova foto</label>
+                  <input type="file" class="form-control-file" id="exampleFormControlFile1">
                 </div>
-              </div>
-            </div>
-          </div>
 
-</div>
+              </form>
 
-<div class="card-group" style="width: 90%;">
-                <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body" align="center">
-            <div class="container">
-              <div class="row">
-            <h4><strong>Eventos feitos</strong></h4>
-            </div>
-          </div>
-            <h2 class="card-text"><strong>79</strong></h2>
-
-          </div>
-        </div>
-
-<div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body" align="center">
-            <div class="container">
-              <div class="row">
-            <h4><strong>Participantes</strong></h4>
-            </div>
-          </div>
-            <h2 class="card-text"><strong>158.000</strong></h2>
-
-          </div>
-        </div>
+                <div class="card-body">
+                  
+                          <form>
+                            <div class="row">
+                             <div class="col-md-6">
+                          <div class="form-group" align="center">
+                          <label class="bmd-label-floating">Usuário</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
 
 
-      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email</label>
+                          <input type="email" class="form-control">
+                        </div>
+                      </div>
 
-      <div class="card-group" style="width: 90%; height: 50%;">
-                <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Fotos</strong></h4> 
-            </div>
-          </div>
-            <img src="../asssets/img/city-profile.jpg">
+                  </div>
 
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Primeiro nome</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Segundo nome</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Endereço</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Cidade</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">País</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">CEP</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Sobre</label>
+                          <div class="form-group">
+                            <label class="bmd-label-floating"  align="center">Escreva sobre sua empresa</label>
+                            <textarea class="form-control" rows="5"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <a type="submit" href="user.html" class="btn btn-primary pull-right">Atualizar</a>
+                    <div class="clearfix"></div>
+                  </form>
             
           </div>
         </div>
@@ -316,15 +338,6 @@ The above copyright notice and this permission notice shall be included in all c
             </div>
           -->
 
-        <footer style="margin-top: 30%;" class="footer">
-          <div class="container-fluid">
-            
-              
-            </div>
-          </div>
-        </footer>
-      </div>
-    </div>
    
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
@@ -372,7 +385,7 @@ The above copyright notice and this permission notice shall be included in all c
     ></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="../assets/demo/demo.js"></script>
-
+ 
     <script>
       $(document).ready(function () {
         const token = sessionStorage.getItem("token");
@@ -598,7 +611,7 @@ The above copyright notice and this permission notice shall be included in all c
         md.initDashboardPageCharts();
       });
     </script>
-
+  
     
   </body>
 </html>
