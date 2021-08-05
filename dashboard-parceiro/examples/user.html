@@ -234,12 +234,12 @@ The above copyright notice and this permission notice shall be included in all c
             <h4><strong>Eventos feitos</strong></h4>
             </div>
           </div>
-            <h2 class="card-text"><strong>79</strong></h2>
+            <h2 class="card-text"><strong id="eventos_feitos"></strong></h2>
 
           </div>
         </div>
 
-<div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
+<!-- <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
           <div class="card-body" align="center">
             <div class="container">
               <div class="row">
@@ -249,12 +249,12 @@ The above copyright notice and this permission notice shall be included in all c
             <h2 class="card-text"><strong>158.000</strong></h2>
 
           </div>
-        </div>
+        </div> -->
 
 
       </div>
 
-      <div class="card-group" style="width: 90%; height: 50%;">
+      <!-- <div class="card-group" style="width: 90%; height: 50%;">
                 <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
           <div class="card-body">
             <div class="container">
@@ -269,7 +269,7 @@ The above copyright notice and this permission notice shall be included in all c
         </div>
 
 
-      </div>
+      </div> -->
  </div>
 </div>
 </div>
@@ -372,6 +372,57 @@ The above copyright notice and this permission notice shall be included in all c
     ></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="../assets/demo/demo.js"></script>
+
+    <script>
+      const token = sessionStorage.getItem("token");
+
+      $(document).ready(function () {
+        $.ajax({
+          dataType: "json",
+          type: "GET",
+          url: "https://victusreciclagem-api.herokuapp.com/company",
+          headers: { Authorization: "Bearer " + token },
+          contentType: "application/json",
+          success: function (data, status, xhr) {;
+            $("#eventos_feitos").text(data.many_events);
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 401) {
+              window.location.href = "../../401.html";
+            }
+          },
+        });
+      });
+
+      $("#edit_user").on("submit", (event) => {
+        event.preventDefault();
+
+        let name = $("#name").val();
+        let birthday = $("#birthday").val();
+
+        let data = {
+          name,
+          birthday: new Date(birthday)
+        }
+
+        $.ajax({
+          dataType: "json",
+          type: "PUT",
+          url: "https://victusreciclagem-api.herokuapp.com/user/edit",
+          data: JSON.stringify(data),
+          headers: { Authorization: "Bearer " + token },
+          contentType: "application/json",
+          success: function (data, status, xhr) {
+            location.reload();
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 401) {
+              window.location.href = "../../401.html";
+            }
+          },
+        });
+      });
+    </script>
     <!--
     <script>
       $(document).ready(function () {
