@@ -196,36 +196,19 @@ The above copyright notice and this permission notice shall be included in all c
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title">Registre uma pontuação</h4>
+                  <p id="error"></p>
                 </div>
                 <div class="card-body">
-                  <form id="edit_user">
+                  <form id="register_transaction">
                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Email</label>
-                          <input type="email" class="form-control" id="email" disabled>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                         <div class="form-group">
                           <label>CPF</label>
-                          <input type="text" class="form-control" id="CPF" disabled>
+                          <input type="text" class="form-control" id="CPF">
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Nome</label>
-                          <input type="text" class="form-control" id="name">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Data de nascimento</label>
-                          <input type="date" class="form-control" id="birthday">
-                        </div>
-                      </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Quilogramas de resíduos</label>
@@ -234,10 +217,10 @@ The above copyright notice and this permission notice shall be included in all c
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <p>Pontos:</p>
-                          <p></p>
+                          <p>Pontos: <strong id="points"></strong> </p>
                         </div>
                       </div>
+                    </div>
                     </div>
                     <button type="submit" class="btn btn-primary pull-right">Registrar</button>
                     <div class="clearfix"></div>
@@ -298,26 +281,56 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="../assets/demo/demo.js"></script>
   
     <script>
+      $("#register_transaction").on("submit", function (e) {
+        e.preventDefault();
+        const pounds = +$("#kg").val();
+        const user_cpf = $("#CPF").val();
+
+        const data = {
+          user_cpf,
+          pounds
+        };
+
+        console.log(data);
+
+        $.ajax({
+          dataType: "json",
+          type: "POST",
+          url: "https://victusreciclagem-api.herokuapp.com/point/transaction",
+          data: JSON.stringify(data),
+          headers: { Authorization: "Bearer " + token },
+          contentType: "application/json",
+          success: function (data, status, xhr) {
+            window.location.href = "./pontuacoes.html";
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 401) {
+              window.location.href = "../../401.html";
+            }
+            console.error(data);
+            $("#error").text(data);
+          },
+        });
+      })
+
+      $("#kg").on("change", function (e) {
+        const points = convertKgToPoints($(this).val());
+        $("#points").text(points);
+      })
+
+      const convertKgToPoints = (kg) => {
+        return kg * 500;
+      }
+
       const token = sessionStorage.getItem("token");
 
       $(document).ready(function () {
         $.ajax({
           dataType: "json",
           type: "GET",
-          url: "https://victusreciclagem-api.herokuapp.com/user",
+          url: "https://victusreciclagem-api.herokuapp.com/point",
           headers: { Authorization: "Bearer " + token },
           contentType: "application/json",
-          success: function (data, status, xhr) {
-            $("#email").val(data.email);
-            $("#name").val(data.name);
-            $("#card-name").text(data.name);
-            $("#CPF").val(data.CPF);
-            let date = new Date(data.birthday);
-            let day = ("0" + (date.getDate() + 1)).slice(-2);
-            let month = ("0" + (date.getMonth() + 1)).slice(-2);
-            var today = date.getFullYear()+"-"+(month)+"-"+(day) ;
-            $("#birthday").val(today);
-          },
           error: function (data, status, xhr) {
             if (data.status == 401) {
               window.location.href = "../../401.html";
