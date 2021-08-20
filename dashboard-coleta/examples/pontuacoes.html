@@ -200,57 +200,8 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="container">
               <div class="row">
           
-                            <div class="card-group" style="width: 350%; background-color: #066566;">
-                <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Fulano</strong></h4>
-            email@email.com<br>
-            2kg<br>
-            1000 pontos<br>
-            23/06/2021 13:49:07
-            </div>
-          </div>
-            <p class="card-text"></p>
-
-            <a href="editar-registro.html" type="button" class="btn btn-light" style="color: black; background-color: white;">Ir</a>
-          </div>
-        </div>
-
-<div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Fulano</strong></h4>
-            email@email.com<br>
-            2kg<br>
-            1000 pontos<br>
-            23/06/2021 13:49:07
-            </div>
-          </div>
-            <p class="card-text"></p>
-
-            <a href="editar-registro.html" type="button" class="btn btn-light" style="color: black; background-color: white;">Ir</a>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Fulano</strong></h4>
-            email@email.com<br>
-            2kg<br>
-            1000 pontos<br>
-            23/06/2021 13:49:07
-            </div>
-          </div>
-            <p class="card-text"></p>
-
-            <a href="editar-registro.html" type="button" class="btn btn-light" style="color: black; background-color: white;">Ir</a>
-          </div>
-        </div>
+      <div class="card-group" style="width: 350%; background-color: #066566;" id="recent">
+        
           </div>
         </div>
 </div>
@@ -346,7 +297,6 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="../assets/demo/demo.js"></script>
     
     <script>
-      
       $(document).ready(function () {
         const token = sessionStorage.getItem("token");
 
@@ -366,6 +316,61 @@ The above copyright notice and this permission notice shall be included in all c
             }
           },
         });
+
+        
+      $.ajax({
+          dataType: "json",
+          type: "GET",
+          url: "https://victusreciclagem-api.herokuapp.com/point/recent",
+          headers: { Authorization: "Bearer " + token },
+          contentType: "application/json",
+          success: function (data, status, xhr) {
+            console.log(data);
+            data.forEach(obj => {
+              const date = new Date(obj.created_at);
+              const month = date.toLocaleString("pt-BR", { month: "2-digit" });
+              const year = date.toLocaleString("pt-BR", { year: "2-digit" });
+              const day = date.toLocaleString("pt-BR", { day: "2-digit" });
+              const hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+              const minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+              const seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+              console.log(`${day}/${month}/${year} ${hours}:${minutes}:${seconds}`)
+              let div = document.createElement("div");
+              div.classList.add="card"
+              div.style.marginTop="3%";
+              div.style.marginLeft="5%";
+              div.style.backgroundColor="#4cafa0";
+              div.style.color="black";
+              div.innerHTML=
+                `
+                <div class="card-body">
+                  <div class="container">
+                    <div class="row">
+                      <h4 style="margin-right: 10%;"><strong>${obj.user_receiver.name}</strong></h4>
+                      ${obj.user_receiver.email}<br>
+                      ${obj.points} pontos<br>
+                      ${day}/${month}/${year} ${hours}:${minutes}:${seconds}
+                      </div>
+                    </div>
+
+                    <a href="editar-registro.html" type="button" class="btn btn-light" style="color: black; background-color: white;">Ir</a>
+                  </div>
+                </div>
+                `
+
+                document.getElementById("recent").appendChild(div);
+            })
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 401) {
+              window.location.href = "../../401.html";
+            }
+
+            document.getElementById("recent").innerHTML=`<p style="color: white; margin-left: 5%"> ${data.responseJSON.error} </p>`
+          },
+        });
+
+
       });
     </script>
     <script>
