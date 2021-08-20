@@ -201,8 +201,6 @@ The above copyright notice and this permission notice shall be included in all c
                   <p class="card-category">Aqui estão todos os registros do seu ponto de coleta</p>
                 </div>
                 <div id="divBusca" class="content" style="margin-left: 2%; margin-top: 2%;">
-                  <input type="text" id="txtBusca" placeholder="Procure por um registro"/>
-                  <a id="btn-danger" alt="Buscar">Buscar</a>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -218,136 +216,11 @@ The above copyright notice and this permission notice shall be included in all c
                           CPF
                         </th>
                         <th>
-                          KGs
-                        </th>
-                        <th>
                           Pontos
                         </th>
-                        <th>
-                          Ação
-                        </th>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            Dakota Rice
-                          </td>
-                          <td>
-                            email@email.com 
-                          </td>
-                          <td>
-                            Niger
-                          </td>
-                          <td>
-                            Oud-Turnhout
-                          </td>
-                          <td class="text-primary">
-                            $36,738
-                          </td>
-                          <td>
-                           <a href="editar-registro.html">Editar</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            email@email.com 
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
-                          </td>
-                          <td>
-                           <a href="editar-registro.html">Editar</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                           email@email.com 
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td class="text-primary">
-                            $56,142
-                          </td>
-                          <td>
-                           <a href="editar-registro.html">Editar</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          <td>
-                            email@email.com 
-                          </td>
-                          <td>
-                            Korea, South
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-primary">
-                            $38,735
-                          </td>
-                          <td>
-                           <a href="editar-registro.html">Editar</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                           Doris Greene
-                          </td>
-                          <td>
-                            email@email.com 
-                          </td>
-                          <td>
-                            Malawi
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-primary">
-                            $63,542
-                          </td>
-                          <td>
-                           <a href="editar-registro.html">Editar</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                           Mason Porter
-                          </td>
-                          <td>
-                           email@email.com 
-                          </td>
-                          <td>
-                            Chile
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-primary">
-                            $78,615
-                          </td>
-                          <td>
-                           <a href="editar-registro.html">Editar</a>
-                          </td>
-                        </tr>
+                      <tbody id="body_all">
+                        
                       </tbody>
                     </table>
                   </div>
@@ -410,48 +283,31 @@ The above copyright notice and this permission notice shall be included in all c
         $.ajax({
           dataType: "json",
           type: "GET",
-          url: "https://victusreciclagem-api.herokuapp.com/user",
+          url: "https://victusreciclagem-api.herokuapp.com/transactions",
           headers: { Authorization: "Bearer " + token },
           contentType: "application/json",
           success: function (data, status, xhr) {
-            $("#email").val(data.email);
-            $("#name").val(data.name);
-            $("#card-name").text(data.name);
-            $("#CPF").val(data.CPF);
-            let date = new Date(data.birthday);
-            let day = ("0" + (date.getDate() + 1)).slice(-2);
-            let month = ("0" + (date.getMonth() + 1)).slice(-2);
-            var today = date.getFullYear()+"-"+(month)+"-"+(day) ;
-            $("#birthday").val(today);
-          },
-          error: function (data, status, xhr) {
-            if (data.status == 401) {
-              window.location.href = "../../401.html";
-            }
-          },
-        });
-      });
+            data.forEach(obj => {
+              let tr = document.createElement("tr");
+              tr.innerHTML = `
+                <tr>
+                  <td>
+                    ${obj.user_receiver.name}
+                  </td>
+                  <td>
+                    ${obj.user_receiver.email}
+                   </td>
+                   <td>
+                    ${obj.user_receiver.CPF}
+                  </td>
+                  <td>
+                    ${obj.points}
+                  </td>
+                </tr>
+              `
 
-      $("#edit_user").on("submit", (event) => {
-        event.preventDefault();
-
-        let name = $("#name").val();
-        let birthday = $("#birthday").val();
-
-        let data = {
-          name,
-          birthday: new Date(birthday)
-        }
-
-        $.ajax({
-          dataType: "json",
-          type: "PUT",
-          url: "https://victusreciclagem-api.herokuapp.com/user/edit",
-          data: JSON.stringify(data),
-          headers: { Authorization: "Bearer " + token },
-          contentType: "application/json",
-          success: function (data, status, xhr) {
-            location.reload();
+              $("#body_all").append(tr);
+            })
           },
           error: function (data, status, xhr) {
             if (data.status == 401) {
