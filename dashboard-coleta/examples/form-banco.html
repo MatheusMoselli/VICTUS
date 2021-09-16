@@ -20,7 +20,7 @@ The above copyright notice and this permission notice shall be included in all c
     />
     <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Victus - Registros</title>
+    <title>Victus - Registro de informações bancárias</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -43,18 +43,18 @@ The above copyright notice and this permission notice shall be included in all c
 
   </head>
 
-  <body class="" style="background-color: #066566;">
+  <body class="" style="background-color: #066566; color: white;">
     <div class="wrapper">
       <div
         class="sidebar"
-        data-color="#066566">
+       >
         <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
     -->
         <div class="logo">
-          <img src="assets/img/logo-branca.svg">
+          <h3>Victus</h3>
         </div>
         <div  style="color: white;" class="sidebar-wrapper">
           <ul class="nav">
@@ -66,18 +66,18 @@ The above copyright notice and this permission notice shall be included in all c
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../../home/index.html#pontos">
-                <i class="material-icons">person</i>
+                <i class="material-icons">bubble_chart</i>
                 <p>Tabela de pontos</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="form-banco.html">
-                <i class="material-icons">content_paste</i>
-                <p>Pagamento</p>
               </a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="#">
+                <i class="material-icons">content_paste</i>
+                <p>Pagamento</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="registro-pontos.html">
                 <i class="material-icons">library_books</i>
                 <p>Histórico de eventos</p>
               </a>
@@ -115,11 +115,11 @@ The above copyright notice and this permission notice shall be included in all c
         >
           <div class="container-fluid">
             <div class="navbar-wrapper">
-
+              <a class="navbar-brand" href="javascript:;" style="color: white;">Registrando suas informações bancárias</a>
             </div>
 
 
-            <button
+            <button style="color: white;"
               class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -154,7 +154,9 @@ The above copyright notice and this permission notice shall be included in all c
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    
+                   
+                  </a>
+                  
                 </li>
               </ul>
             </div>
@@ -191,45 +193,53 @@ The above copyright notice and this permission notice shall be included in all c
 
 
                <div class="content">
-                      <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-success">
-                  
-                  <h4 class="card-title ">Registros</h4>
-                  <p class="card-category">Aqui estão todos os registros do seu ponto de coleta</p>
+        <div class="container">
+
+
+     <div  style="background: rgba(255, 255, 255, 0.2); padding: 5%;">            
+<h4 style="color: white; margin-bottom: 4%;">Coloque suas informações bancárias para receber o dinheiro das coletas!</h4>
+                  <form id="edit_user" style="color: white;">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Banco</label>
+                          <input type="email" class="form-control" id="banco">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Agência</label>
+                          <input type="text" class="form-control" id="agencia">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Conta</label>
+                          <input type="text" class="form-control" id="conta">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>CNPJ</label>
+                          <input type="text" class="form-control" id="CNPJ">
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <label>Nome</label>
+                          <input type="text" class="form-control" id="name">
+                        </div>
+                      </div>
+                    </div>
+                    <button class="btn btn-success">Salvar</button>
+                  </form>
                 </div>
-                <div id="divBusca" class="content" style="margin-left: 2%; margin-top: 2%;">
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-success">
-                        <th>
-                          Nome
-                        </th>
-                        <th>
-                          Email
-                        </th>
-                        <th>
-                          CPF
-                        </th>
-                        <th>
-                          Pontos
-                        </th>
-                      </thead>
-                      <tbody id="body_all">
-                        
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-               </div>
-        
+</div>
+      </div>
+    </div>
+   
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
     <script src="../assets/js/core/popper.min.js"></script>
@@ -276,7 +286,7 @@ The above copyright notice and this permission notice shall be included in all c
     ></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="../assets/demo/demo.js"></script>
-  
+  <!--
     <script>
       const token = sessionStorage.getItem("token");
 
@@ -284,31 +294,48 @@ The above copyright notice and this permission notice shall be included in all c
         $.ajax({
           dataType: "json",
           type: "GET",
-          url: "https://victusreciclagem-api.herokuapp.com/transactions",
+          url: "https://victusreciclagem-api.herokuapp.com/user",
           headers: { Authorization: "Bearer " + token },
           contentType: "application/json",
           success: function (data, status, xhr) {
-            data.forEach(obj => {
-              let tr = document.createElement("tr");
-              tr.innerHTML = `
-                <tr>
-                  <td>
-                    ${obj.user_receiver.name}
-                  </td>
-                  <td>
-                    ${obj.user_receiver.email}
-                   </td>
-                   <td>
-                    ${obj.user_receiver.CPF}
-                  </td>
-                  <td>
-                    ${obj.points}
-                  </td>
-                </tr>
-              `
+            $("#email").val(data.email);
+            $("#name").val(data.name);
+            $("#card-name").text(data.name);
+            $("#CPF").val(data.CPF);
+            let date = new Date(data.birthday);
+            let day = ("0" + (date.getDate() + 1)).slice(-2);
+            let month = ("0" + (date.getMonth() + 1)).slice(-2);
+            var today = date.getFullYear()+"-"+(month)+"-"+(day) ;
+            $("#birthday").val(today);
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 401) {
+              window.location.href = "../../401.html";
+            }
+          },
+        });
+      });
 
-              $("#body_all").append(tr);
-            })
+      $("#edit_user").on("submit", (event) => {
+        event.preventDefault();
+
+        let name = $("#name").val();
+        let birthday = $("#birthday").val();
+
+        let data = {
+          name,
+          birthday: new Date(birthday)
+        }
+
+        $.ajax({
+          dataType: "json",
+          type: "PUT",
+          url: "https://victusreciclagem-api.herokuapp.com/user/edit",
+          data: JSON.stringify(data),
+          headers: { Authorization: "Bearer " + token },
+          contentType: "application/json",
+          success: function (data, status, xhr) {
+            location.reload();
           },
           error: function (data, status, xhr) {
             if (data.status == 401) {
@@ -318,6 +345,6 @@ The above copyright notice and this permission notice shall be included in all c
         });
       });
     </script>
-  
+  -->
   </body>
 </html>
