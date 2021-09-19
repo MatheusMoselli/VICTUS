@@ -90,12 +90,6 @@
     <script src="js/main.js"></script>
 
     <script>
-      $(document).ready(function () {
-        if(sessionStorage.getItem("token")) {
-          window.location.href="../dashboard-cliente/examples/dashboard.html"
-        };
-      });
-
       $("#submit").click(function () {
         let email = $("#email").val();
         let password = $("#password").val();

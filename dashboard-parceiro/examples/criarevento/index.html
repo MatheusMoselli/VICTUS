@@ -34,25 +34,22 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Informações do Evento</h2>
-                    <form method="POST">
+                    <form id="formSubmit">
                         <div class="input-group">
-                            <input class="input--style-1" type="text" placeholder="Título" name="name">
+                            <input class="input--style-1" type="text" placeholder="Título" name="name" id="name">
                         </div>
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-1 js-datepicker" type="text" placeholder="Data" name="birthday">
+                                    <input class="input--style-1 js-datepicker" type="text" placeholder="Data" name="date" id="date">
                                     <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="gender">
+                                        <select name="gender" id="type">
                                             <option disabled="disabled" selected="selected">Gênero</option>
-                                            <option>Festa</option>
-                                            <option>Show</option>
-                                            <option>Outro</option>
                                         </select>
                                         <div class="select-dropdown"></div>
                                     </div>
@@ -61,36 +58,35 @@
                         </div>
                         <h2 class="title">Endereço</h2>
                         <div class="input-group">
-                            <input class="input--style-1" type="text" placeholder="Logradouro" name="name">
+                            <input class="input--style-1" type="text" placeholder="Logradouro" name="logradouro" id="patio">
                         </div>
                         
 
                               <div class="row">
                                 <div class="col">
-                                  <input type="text" class="input--style-1" placeholder="CEP" >
+                                  <input type="text" class="input--style-1" placeholder="CEP" id="CEP">
                                 </div>
                                 <div class="col">
-                                  <input type="text" class="input--style-1" placeholder="Bairro">
+                                  <input type="text" class="input--style-1" placeholder="Bairro" id="neighborhood">
                                 </div>
                               </div>
                                 
                                <div class="row">
                                 <div class="col">
-                                  <input type="text" class="input--style-1" placeholder="Cidade">
+                                  <input type="text" class="input--style-1" placeholder="Cidade" id="city">
                                 </div>
                                 <div class="col">
-                                  <input type="text" class="input--style-1" placeholder="Estado">
+                                  <input type="text" class="input--style-1" placeholder="Estado" id="state">
                                 </div>
                               </div>
                               <div class="row">
                                 <div class="col">
-                                  <input type="text" class="input--style-1" placeholder="Pontos a serem cobrados">
+                                  <input type="text" class="input--style-1" placeholder="Pontos a serem cobrados" id="necessary_points">
                                 </div>
                                 <div class="col">
                                   <p class="input--style-1" style="margin-left: 10%;">Lembrete: 100 pontos = 10 reais</p>
                                 </div>
                               </div>
-                              <fieldset disabled>
                                      <button class="btn btn--radius btn--green" type="submit">Enviar</button>
                                 
                             </form>
@@ -114,6 +110,63 @@
 
     <!-- Main JS-->
     <script src="js/global.js"></script>
+    <script>
+      const token = sessionStorage.getItem("token");
+      if(!token) {
+        console.log("not allowed");
+      }
+
+      $(location).ready(function() {
+        $.ajax({
+          url: "https://victusreciclagem-api.herokuapp.com/event-types",
+          dataType: "json",
+          type: "GET",
+          contentType: "application/json",
+          success: function(data, status, xhr) {
+            data.forEach(type => {
+              $(`<option value="${type._id}">${type.name}</option>`).appendTo("#type");
+            })
+          }
+        })
+      });
+
+      $("#formSubmit").on("submit", function(e) {
+        e.preventDefault();
+        let [day, month, year] = $("#date").val().split("/");
+
+        const data = {
+          name: $("#name").val(),
+          address: {
+            patio: $("#patio").val(),
+            CEP: $("#CEP").val(),
+            neighborhood: $("#neighborhood").val(),
+            city: $("#city").val(),
+            state: $("#state").val()
+          },
+          necessary_points: +$("#necessary_points").val(),
+          date: `${year}-${month}-${day}`,
+          type: $("#type").find(":selected").attr("value")
+        }
+
+        console.log(JSON.stringify(data));
+
+        $.ajax({
+          url: "https://victusreciclagem-api.herokuapp.com/company/events/create",
+          dataType: "json",
+          type: "POST",
+          data: JSON.stringify(data),
+          contentType: "application/json",
+          headers: { Authorization: "Bearer " + token },
+          success: function(data, status, xhr) {
+            console.log("deu certo!")
+            console.log(data);
+          },
+          error: function(data, status, xhr) {
+            console.log(data);
+          }
+        })
+      });
+    </script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
