@@ -211,7 +211,7 @@ The above copyright notice and this permission notice shall be included in all c
           </div>
         </div>
 
-<div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
+        <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
           <div class="card-body">
             <div class="container">
               <div class="row">
@@ -226,82 +226,9 @@ The above copyright notice and this permission notice shall be included in all c
 
 
       </div>
-
-
-        <h3 style="margin-top: 10%; margin-left: 5%; color: white;">Eventos em alta</h3>
-                            <div class="card-group" style="width: 350%;">
-                <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Campeonato de CS</strong></h4> <h5><strong>20/06/2021</strong></h5>
-            </div>
-          </div>
-            <p class="card-text">Joga y joga</p>
-
-            <button type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</button>
-          </div>
-        </div>
-
-<div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Supla Canta</strong></h4> <h5><strong>30/06/2021</strong></h5>
-            </div>
-          </div>
-            <p class="card-text">HEY KIDS</p>
-
-            <button type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</button>
-          </div>
-        </div>
-
-
-      </div>
-        <h3 style="margin-top: 10%; margin-left: 5%; color: white;">Recomendados para você</h3>
-                            <div class="card-group" style="width: 350%;">
-                <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Roberto Carlos</strong></h4> <h5><strong>14/06/2021</strong></h5>
-            </div>
-          </div>
-            <p class="card-text">ESSE CARA SOU EU!!!!!!!</p>
-
-            <button type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</button>
-          </div>
-        </div>
-
-<div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Comes e Bebes da Google</strong></h4> <h5><strong>14/06/2021</strong></h5>
-            </div>
-          </div>
-            <p class="card-text">Conversas e desenvolvimento!</p>
-
-            <button type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</button>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Festa Junina</strong></h4> <h5><strong>14/06/2021</strong></h5>
-            </div>
-          </div>
-            <p class="card-text">Venha se deliciar com a nossa paçoca :P</p>
-
-            <button type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</button>
-          </div>
-        </div>
-
-
-
-
+      
+      <h3 style="margin-top: 10%; margin-left: 5%; color: white;">Eventos em alta</h3>
+      <div class="card-group" style="width: 350%;" id="em_alta">
       </div>
 <!--
               <div class="col-lg-3 col-md-6 col-sm-6">
@@ -422,6 +349,41 @@ The above copyright notice and this permission notice shall be included in all c
             }
           },
         });
+
+        $.ajax({
+          dataType: "json",
+          type: "GET",
+          url: "https://victusreciclagem-api.herokuapp.com/events/top_events",
+          contentType: "application/json",
+          success: function(data, status, xhr) {
+            data.forEach(obj => {
+              const date = new Date(obj.event[0].date);
+              const day = date.getDate();
+              const month = date.getMonth() + 1;
+              const year = date.getFullYear();
+              let div = document.createElement("div");
+              div.classList.add="card"
+              div.style.marginTop="3%";
+              div.style.marginLeft="5%";
+              div.style.backgroundColor="#4cafa0";
+              div.style.color="black";
+              div.innerHTML=`
+                <div class="card-body">
+                  <div class="container">
+                    <div class="row">
+                      <h4 style="margin-right: 10%;"><strong>${obj.event[0].name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>
+                      </div>
+                    </div>
+
+                    <a href="editar-registro.html" type="button" class="btn btn-light" style="color: black; background-color: white;">Ir</a>
+                  </div>
+                </div>
+              `;
+            
+            document.getElementById("em_alta").appendChild(div);
+          })
+        }
+        })
       });
     </script>
     <script>
