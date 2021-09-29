@@ -88,7 +88,7 @@ The above copyright notice and this permission notice shall be included in all c
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="logout" href="user.html">
+              <a class="nav-link" id="profile" href="user.html">
                 <i class="material-icons">person</i>
                 <p>Perfil</p>
               </a>
@@ -340,8 +340,6 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="../assets/demo/demo.js"></script>
     
     <script>
-      
-      
      $("#logout").click(function () {
         sessionStorage.removeItem("token");
         window.location.href="../../index.html";
@@ -362,7 +360,7 @@ The above copyright notice and this permission notice shall be included in all c
           },
           error: function (data, status, xhr) {
             if (data.status == 401) {
-              window.location.href = "../../401.html";
+              window.location.href = "../../index.html";
             }
           },
         });
@@ -394,7 +392,9 @@ The above copyright notice and this permission notice shall be included in all c
                     </div>
                   </div>
                   <p class="card-text">${obj.address.city}</p>
-                  <button type="button" class="btn btn-light" style="color: black; background-color: white" id="${obj._id}">Ver mais</button>
+                  <button type="button" class="btn btn-light" style="color: black; background-color: white">
+                    Ver mais
+                    </button>
                 </div>
                 `
 
@@ -403,7 +403,7 @@ The above copyright notice and this permission notice shall be included in all c
           },
           error: function (data, status, xhr) {
             if (data.status == 401) {
-              window.location.href = "../../401.html";
+              window.location.href = "../../index.html";
             }
 
             document.getElementById("events").innerHTML=`<p style="color: white; margin-left: 5%"> ${data.responseJSON.error} </p>`

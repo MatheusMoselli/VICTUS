@@ -185,32 +185,8 @@ The above copyright notice and this permission notice shall be included in all c
 
                 <h3 style="margin-top: 15%; margin-left: 5%; color: white;">Salvos</h3>
 
-            <div class="card-group" style="width: 350%;">
-                <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Manifestação</strong></h4> <h5><strong>14/06/2021</strong></h5>
-            </div>
-          </div>
-            <p class="card-text">Lutaremos pelos nossos direitos!</p>
-
-            <button type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</button>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Cover Tim Maia</strong></h4> <h5><strong>15/06/2021</strong></h5>
-            </div>
-          </div>
-            <p class="card-text">Venha cantar e sofrer!</p>
-
-            <button type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</button>
-          </div>
-        </div>
+            <div class="card-group" style="width: 350%;" id="saveds">
+        
 
 
       </div>
@@ -313,13 +289,54 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="../assets/demo/demo.js"></script>
     
     <script>
+      const hostname = window.location.hostname;
+
       $("#logout").click(function () {
         sessionStorage.removeItem("token");
-        window.location.href="../../index.html";
+        window.location.href = hostname + "/";
       });
 
       $(document).ready(function () {
         const token = sessionStorage.getItem("token");
+
+        $.ajax({
+          dataType: "json",
+          type: "GET",
+          url: "https://victusreciclagem-api.herokuapp.com/user/my_events",
+          headers: { Authorization: "Bearer " + token },
+          contentType: "application/json",
+          success: function (data, status, xhr) {
+            data.forEach(obj => {
+              const { event_receiver } = obj;
+              const date = new Date(event_receiver.date);
+              const day = date.getDate();
+              const month = date.getMonth() + 1;
+              const year = date.getFullYear();
+
+              $("#saveds").append(`
+              <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
+                <div class="card-body">
+                    <div class="container">
+                      <div class="row">
+                    <h4 style="margin-right: 10%;"><strong>${event_receiver.name}</strong></h4> <h5><strong>${day}/${month}/${year}</strong></h5>
+                    </div>
+                  </div>
+                    <p class="card-text">Pontos necessários: ${event_receiver.necessary_points}</p>
+                  </div>
+                </div>
+              </div>
+              `);
+            })
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 401) {
+              window.location.href = "../../index.html";
+            }
+
+            document.getElementById("events").innerHTML=`<p style="color: white; margin-left: 5%"> ${data.responseJSON.error} </p>`
+
+          },
+        });
 
         $.ajax({
           dataType: "json",
@@ -333,7 +350,7 @@ The above copyright notice and this permission notice shall be included in all c
           },
           error: function (data, status, xhr) {
             if (data.status == 401) {
-              window.location.href = "../../401.html";
+              window.location.href = "../../index.html";
             }
           },
         });
@@ -362,12 +379,15 @@ The above copyright notice and this permission notice shall be included in all c
                       <h4 style="margin-right: 10%;"><strong>${obj.event[0].name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>
                       </div>
                     </div>
-
-                    <a href="editar-registro.html" type="button" class="btn btn-light" style="color: black; background-color: white;">Ir</a>
+                    
                   </div>
                 </div>
               `;
             
+
+                $(`#${obj._id}`).on("click", function () {
+                  alert("caralhooooooooooooooooooooooooo")
+                })
             document.getElementById("em_alta").appendChild(div);
           })
         }
