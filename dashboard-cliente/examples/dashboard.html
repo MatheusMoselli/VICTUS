@@ -184,11 +184,8 @@ The above copyright notice and this permission notice shall be included in all c
 
 
                 <h3 style="margin-top: 15%; margin-left: 5%; color: white;">Salvos</h3>
-
             <div class="card-group" style="width: 350%;" id="saveds">
-        
-
-
+    
       </div>
       
       <h3 style="margin-top: 10%; margin-left: 5%; color: white;">Eventos em alta</h3>
@@ -379,14 +376,13 @@ The above copyright notice and this permission notice shall be included in all c
                       <h4 style="margin-right: 10%;"><strong>${obj.event[0].name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>
                       </div>
                     </div>
-                    
                   </div>
                 </div>
               `;
             
 
                 $(`#${obj._id}`).on("click", function () {
-                  alert("caralhooooooooooooooooooooooooo")
+                  // do stuff
                 })
             document.getElementById("em_alta").appendChild(div);
           })
