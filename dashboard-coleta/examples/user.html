@@ -382,22 +382,22 @@ The above copyright notice and this permission notice shall be included in all c
       $(document).ready(function () {
         const token = sessionStorage.getItem("token");
 
-        $.ajax({
-          dataType: "json",
-          type: "GET",
-          url: "https://victusreciclagem-api.herokuapp.com/user",
-          headers: { Authorization: "Bearer " + token },
-          contentType: "application/json",
-          success: function (data, status, xhr) {
-            $("#name").text(data.name);
-            $("#points").text(data.points);
-          },
-          error: function (data, status, xhr) {
-            if (data.status == 401) {
-              window.location.href = "../../401.html";
-            }
-          },
-        });
+        // $.ajax({
+        //   dataType: "json",
+        //   type: "GET",
+        //   url: "https://victusreciclagem-api.herokuapp.com/user",
+        //   headers: { Authorization: "Bearer " + token },
+        //   contentType: "application/json",
+        //   success: function (data, status, xhr) {
+        //     $("#name").text(data.name);
+        //     $("#points").text(data.points);
+        //   },
+        //   error: function (data, status, xhr) {
+        //     if (data.status == 401) {
+        //       window.location.href = "../../401.html";
+        //     }
+        //   },
+        // });
       });
     </script>
     <script>
