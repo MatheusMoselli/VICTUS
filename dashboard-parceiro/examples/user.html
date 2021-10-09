@@ -76,12 +76,6 @@ The above copyright notice and this permission notice shall be included in all c
                 <p>Pagamento</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="registro-pontos.html">
-                <i class="material-icons">library_books</i>
-                <p>Histórico de eventos</p>
-              </a>
-            </li>
             <li class="nav-item active">
               <a class="nav-link" id="" href="">
                 <i class="material-icons">person</i>
@@ -147,7 +141,7 @@ The above copyright notice and this permission notice shall be included in all c
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
-                  >
+                  ></a>
                 </li>
               </ul>
             </div>
@@ -228,19 +222,7 @@ The above copyright notice and this permission notice shall be included in all c
             <h4><strong>Eventos feitos</strong></h4>
             </div>
           </div>
-            <h2 class="card-text"><strong>79</strong></h2>
-
-          </div>
-        </div>
-
-<div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body" align="center">
-            <div class="container">
-              <div class="row">
-            <h4><strong>Participantes</strong></h4>
-            </div>
-          </div>
-            <h2 class="card-text"><strong>158.000</strong></h2>
+            <h2 class="card-text"><strong id="many_events">0</strong></h2>
 
           </div>
         </div>
@@ -248,22 +230,6 @@ The above copyright notice and this permission notice shall be included in all c
 
       </div>
 
-      <div class="card-group" style="width: 90%; height: 50%;">
-                <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-            <h4 style="margin-right: 10%;"><strong>Fotos</strong></h4> 
-            </div>
-          </div>
-            <img src="../asssets/img/city-profile.jpg">
-
-            
-          </div>
-        </div>
-
-
-      </div>
  </div>
 </div>
 </div>
@@ -374,12 +340,11 @@ The above copyright notice and this permission notice shall be included in all c
         $.ajax({
           dataType: "json",
           type: "GET",
-          url: "https://victusreciclagem-api.herokuapp.com/user",
+          url: "https://victusreciclagem-api.herokuapp.com/company",
           headers: { Authorization: "Bearer " + token },
           contentType: "application/json",
           success: function (data, status, xhr) {
-            $("#name").text(data.name);
-            $("#points").text(data.points);
+            $("#many_events").text(data.many_events);
           },
           error: function (data, status, xhr) {
             if (data.status == 401) {

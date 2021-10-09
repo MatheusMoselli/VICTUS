@@ -130,7 +130,7 @@
         <div style="color: white" action="register-company.php" method="post">
           <div class="form-group first">
             <label for="username">Nome</label>
-            <input type="text" class="form-control" id="username" name="name" />
+            <input type="text" class="form-control" id="name" name="name" />
           </div>
           <div class="form-group last mb-4">
             <label for="CNPJ">CNPJ</label>
@@ -181,6 +181,8 @@
           password,
         };
 
+        console.log(data);
+
         $.ajax({
           dataType: "json",
           data: JSON.stringify(data),
@@ -191,6 +193,7 @@
             window.location.href = "../index.html";
           },
           error: function (data, status, xhr) {
+            console.log(data);
             $("#err").text(data.responseJSON.error);
             $("#err").attr("hidden", false);
           },

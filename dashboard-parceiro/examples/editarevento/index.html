@@ -38,6 +38,9 @@
                         <div class="input-group">
                             <input class="input--style-1" type="text" placeholder="Título" name="name" id="name">
                         </div>
+                        <div class="input-group">
+                          <input class="input--style-1" type="text" placeholder="Detalhes do evento" name="details" id="details">
+                      </div>
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -48,10 +51,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="gender" id="type">
-                                            <option disabled="disabled" selected="selected">Gênero</option>
-                                        </select>
-                                        <div class="select-dropdown"></div>
+                                      <input class="input--style-1" type="text" placeholder="Tipo" name="type" id="type" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -113,21 +113,49 @@
     <script>
       const token = sessionStorage.getItem("token");
       if(!token) {
-        console.log("not allowed");
+        sessionStorage.removeItem("token");
+        window.location.href = "../../../index.html";
       }
 
+      const urlParams = new URLSearchParams(window.location.search);
+      const hasParam = urlParams.has('evento_id');
+      const param = urlParams.get('evento_id');
+
       $(location).ready(function() {
-        $.ajax({
-          url: "https://victusreciclagem-api.herokuapp.com/event-types",
+        if(hasParam) {  
+          $.ajax({
           dataType: "json",
           type: "GET",
+          url: `https://victusreciclagem-api.herokuapp.com/event/${param}`,
           contentType: "application/json",
-          success: function(data, status, xhr) {
-            data.forEach(type => {
-              $(`<option value="${type._id}">${type.name}</option>`).appendTo("#type");
-            })
-          }
-        })
+          success: function (data, status, xhr) {
+            const date = new Date(data.date)
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear()
+            const res = `${day}/${month}/${year}`;
+
+            $("#name").val(data.name);
+            $("#date").val(res);
+            $("#details").val(data.details)
+            $("#type").val(data.type.name);
+            $("#patio").val(data.address.patio);
+            $("#neighborhood").val(data.address.neighborhood);
+            $("#CEP").val(data.address.CEP);
+            $("#state").val(data.address.state)
+            $("#city").val(data.address.city)
+            $("#necessary_points").val(data.necessary_points);
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 400) {
+              alert(data.responseJSON.error)
+              window.location.href = "../../../index.html";
+            }
+          },
+        });
+        } else {
+          window.location.href = "../../../index.html";
+        }
       });
 
       $("#formSubmit").on("submit", function(e) {
@@ -136,6 +164,7 @@
 
         const data = {
           name: $("#name").val(),
+          details: $("#details").val(),
           address: {
             patio: $("#patio").val(),
             CEP: $("#CEP").val(),
@@ -145,21 +174,17 @@
           },
           necessary_points: +$("#necessary_points").val(),
           date: `${year}-${month}-${day}`,
-          type: $("#type").find(":selected").attr("value")
         }
 
-        console.log(JSON.stringify(data));
-
         $.ajax({
-          url: "https://victusreciclagem-api.herokuapp.com/company/events/create",
+          url: `https://victusreciclagem-api.herokuapp.com/company/events/edit/${param}`,
           dataType: "json",
-          type: "POST",
+          type: "PUT",
           data: JSON.stringify(data),
           contentType: "application/json",
           headers: { Authorization: "Bearer " + token },
           success: function(data, status, xhr) {
-            console.log("deu certo!")
-            console.log(data);
+            window.location.href = "../dashboard.html";
           },
           error: function(data, status, xhr) {
             console.log(data);

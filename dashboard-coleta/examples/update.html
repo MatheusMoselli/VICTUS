@@ -118,16 +118,14 @@ The above copyright notice and this permission notice shall be included in all c
                   <input type="file" class="form-control-file" id="exampleFormControlFile1">
                 </div>
 
-              </form>
-
                 <div class="card-body">
                   
-                          <form>
+                          <form id="form_edit">
                             <div class="row">
                              <div class="col-md-6">
                           <div class="form-group" align="center">
-                          <label class="bmd-label-floating">Usuário</label>
-                          <input type="text" class="form-control">
+                          <label class="bmd-label-floating">Nome</label>
+                          <input type="text" class="form-control" id="name">
                         </div>
                       </div>
 
@@ -135,31 +133,22 @@ The above copyright notice and this permission notice shall be included in all c
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Email</label>
-                          <input type="email" class="form-control">
+                          <input type="email" class="form-control disabled" id="email" disabled>
                         </div>
                       </div>
 
                   </div>
-
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Primeiro nome</label>
-                          <input type="text" class="form-control">
+                          <label class="bmd-label-floating">Logradouro</label>
+                          <input type="text" class="form-control" id="patio">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Segundo nome</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Endereço</label>
-                          <input type="text" class="form-control">
+                          <label class="bmd-label-floating">Bairro</label>
+                          <input type="text" class="form-control" id="neighborhood">
                         </div>
                       </div>
                     </div>
@@ -167,34 +156,23 @@ The above copyright notice and this permission notice shall be included in all c
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Cidade</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" id="city">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating">País</label>
-                          <input type="text" class="form-control">
+                          <label class="bmd-label-floating">Estado</label>
+                          <input type="text" class="form-control" id="state">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">CEP</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" id="CEP">
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label>Sobre</label>
-                          <div class="form-group">
-                            <label class="bmd-label-floating"  align="center">Escreva sobre seu ponto de coleta</label>
-                            <textarea class="form-control" rows="5"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <a type="submit" href="user.html" class="btn btn-primary pull-right">Atualizar</a>
+                    <button href="user.html" class="btn btn-primary pull-right" id="edit">Atualizar</button>
                     <div class="clearfix"></div>
                   </form>
             
@@ -207,49 +185,6 @@ The above copyright notice and this permission notice shall be included in all c
 </div>
 </div>
 
-        
-         
-
-
-
-<!--
-              <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                  <div class="card-header card-header-danger card-header-icon">
-                    <div class="card-icon">
-                      <i class="material-icons">info_outline</i>
-                    </div>
-                    <p class="card-category">Fixed Issues</p>
-                    <h3 class="card-title">75</h3>
-                  </div>
-                  <div class="card-footer">
-                    <div class="stats">
-                      <i class="material-icons">local_offer</i> Tracked from
-                      Github
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                  <div class="card-header card-header-info card-header-icon">
-                    <div class="card-icon">
-                      <i class="fa fa-twitter"></i>
-                    </div>
-                    <p class="card-category">Followers</p>
-                    <h3 class="card-title">+245</h3>
-                  </div>
-                  <div class="card-footer">
-                    <div class="stats">
-                      <i class="material-icons">update</i> Just Updated
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          -->
-
-   
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
     <script src="../assets/js/core/popper.min.js"></script>
@@ -298,18 +233,57 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="../assets/demo/demo.js"></script>
  
     <script>
+      const token = sessionStorage.getItem("token");
+      
       $(document).ready(function () {
-        const token = sessionStorage.getItem("token");
 
         $.ajax({
           dataType: "json",
           type: "GET",
-          url: "https://victusreciclagem-api.herokuapp.com/user",
+          url: "https://victusreciclagem-api.herokuapp.com/point",
           headers: { Authorization: "Bearer " + token },
           contentType: "application/json",
           success: function (data, status, xhr) {
-            $("#name").text(data.name);
-            $("#points").text(data.points);
+            $("#name").val(data.name)
+            $("#email").val(data.email)
+            $("#patio").val(data.address.patio)
+            $("#neighborhood").val(data.address.neighborhood)
+            $("#city").val(data.address.city)
+            $("#state").val(data.address.state)
+            $("#CEP").val(data.address.CEP)
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 401) {
+              window.location.href = "../../401.html";
+            }
+          },
+        });
+      });
+
+      $("#edit").on("click", function(event) {
+        event.preventDefault();
+
+        const data = {
+          name: $("#name").val(),
+          address: {
+            patio: $("#patio").val(),
+            neighborhood: $("#neighborhood").val(),
+            city: $("#city").val(),
+            state: $("#state").val(),
+            CEP: $("#CEP").val()
+          }
+        }
+
+        $.ajax({
+          dataType: "json",
+          type: "PUT",
+          url: "https://victusreciclagem-api.herokuapp.com/point/edit",
+          data: JSON.stringify(data),
+          headers: { Authorization: "Bearer " + token },
+          contentType: "application/json",
+          success: function (data, status, xhr) {
+            console.log("success");
+            location.reload();
           },
           error: function (data, status, xhr) {
             if (data.status == 401) {

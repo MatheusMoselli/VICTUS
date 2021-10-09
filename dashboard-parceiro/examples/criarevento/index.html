@@ -22,6 +22,10 @@
     <!-- Vendor CSS-->
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    
+    <link rel="stylesheet" type="text/css" href="cssbootstrap-grid.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 
     <!-- Main CSS-->
     <link href="css/main.css" rel="stylesheet" media="all">
@@ -38,6 +42,9 @@
                         <div class="input-group">
                             <input class="input--style-1" type="text" placeholder="Título" name="name" id="name">
                         </div>
+                        <div class="input-group">
+                          <input class="input--style-1" type="text" placeholder="Detalhes do evento" name="details" id="details">
+                      </div>
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -136,6 +143,7 @@
 
         const data = {
           name: $("#name").val(),
+          details: $("#details").val(),
           address: {
             patio: $("#patio").val(),
             CEP: $("#CEP").val(),
@@ -148,7 +156,7 @@
           type: $("#type").find(":selected").attr("value")
         }
 
-        console.log(JSON.stringify(data));
+        console.log(data);
 
         $.ajax({
           url: "https://victusreciclagem-api.herokuapp.com/company/events/create",
@@ -158,8 +166,7 @@
           contentType: "application/json",
           headers: { Authorization: "Bearer " + token },
           success: function(data, status, xhr) {
-            console.log("deu certo!")
-            console.log(data);
+            window.location.href = "../dashboard.html";
           },
           error: function(data, status, xhr) {
             console.log(data);
