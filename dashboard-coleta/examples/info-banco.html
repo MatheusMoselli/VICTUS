@@ -159,7 +159,7 @@ The above copyright notice and this permission notice shall be included in all c
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
-                  >
+                  ></a>
                    
                 </li>
               </ul>
@@ -313,7 +313,13 @@ The above copyright notice and this permission notice shall be included in all c
       type="text/javascript"
     ></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <!--
+    <script>
+      $("#logout").click(function () {
+        sessionStorage.removeItem("token");
+        window.location.href="../../index.html";
+      });
+    </script>
+    <!--
     <script src="../assets/demo/demo.js"></script>
     <script>
       $("#logout").click(function () {

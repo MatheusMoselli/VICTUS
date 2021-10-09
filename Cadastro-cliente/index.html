@@ -77,25 +77,40 @@
           <div class="question">
             <input type="checkbox" id="question-1" />
             <label for="question-1">Onde vai ser os pontos de coletas?</label>
-            <div class="answer">Vamos ter vários pontos de coleta e no próprio site vai estar indicando aquele que fica mais perto de você.</div>
+            <div class="answer">
+              Vamos ter vários pontos de coleta e no próprio site vai estar
+              indicando aquele que fica mais perto de você.
+            </div>
           </div>
 
           <div class="question">
             <input type="checkbox" id="question-2" />
             <label for="question-2">Como vou saber a minha pontuação?</label>
-            <div class="answer">Toda vez que você for fazer a sua troca, o nosso parceiro vai colocar a sua pontuação e você vai conseguir ver na aba quantos pontos você tem.</div>
+            <div class="answer">
+              Toda vez que você for fazer a sua troca, o nosso parceiro vai
+              colocar a sua pontuação e você vai conseguir ver na aba quantos
+              pontos você tem.
+            </div>
           </div>
 
           <div class="question">
             <input type="checkbox" id="question-3" />
-            <label for="question-3">Como eu posso entrar como parceiros de vocês?</label>
-            <div class="answer">Quando você entra no site aparece a parte de se cadastrar, e lá vai ter a opção de empresa, você pode tornar nosso parceiro e falar suas ideias.</div>
+            <label for="question-3"
+              >Como eu posso entrar como parceiros de vocês?</label
+            >
+            <div class="answer">
+              Quando você entra no site aparece a parte de se cadastrar, e lá
+              vai ter a opção de empresa, você pode tornar nosso parceiro e
+              falar suas ideias.
+            </div>
           </div>
 
           <div class="question">
             <input type="checkbox" id="question-4" />
             <label for="question-4">Qual material pode ser reciclado ? </label>
-            <div class="answer">Vamos reciclar papelão, alumínio, latinhas, plástico e etc.</div>
+            <div class="answer">
+              Vamos reciclar papelão, alumínio, latinhas, plástico e etc.
+            </div>
           </div>
         </div>
       </div>
@@ -111,6 +126,7 @@
       <div class="col-md-6 contents">
         <div class="mb-4">
           <h3>Crie sua conta no <strong>Victus</strong></h3>
+          <div class="alert alert-danger" role="alert" id="err" hidden></div>
         </div>
         <div style="color: white" method="post" id="cadastro">
           <div class="form-group first">
@@ -203,8 +219,13 @@
           type: "POST",
           url: "https://victusreciclagem-api.herokuapp.com/user/create",
           contentType: "application/json",
-        }).done(function () {
-          window.location.href = "../index.html";
+          success: function (data, status, xhr) {
+            window.location.href = "../index.html";
+          },
+          error: function (data, status, xhr) {
+            $("#err").text(data.responseJSON.error);
+            $("#err").attr("hidden", false);
+          },
         });
       });
     </script>

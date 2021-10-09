@@ -78,20 +78,37 @@
         <div class="perguntas">
           <div class="question">
             <input type="checkbox" id="question-1" />
-            <label for="question-1">Como eu posso entrar como parceiros de vocês?</label>
-            <div class="answer">Quando você entra no site aparece a parte de se cadastrar, e lá vai ter a opção de empresa, você pode tornar nosso parceiro e falar suas ideias.</div>
+            <label for="question-1"
+              >Como eu posso entrar como parceiros de vocês?</label
+            >
+            <div class="answer">
+              Quando você entra no site aparece a parte de se cadastrar, e lá
+              vai ter a opção de empresa, você pode tornar nosso parceiro e
+              falar suas ideias.
+            </div>
           </div>
 
           <div class="question">
             <input type="checkbox" id="question-2" />
-            <label for="question-2">Preciso ser uma empresa grande para virar parceiro de vocês?</label>
-            <div class="answer">Não, você não precisa ser uma empresa grande para virar parceiro do VICTUS. Entre em contato com a gente para melhores explicações.</div>
+            <label for="question-2"
+              >Preciso ser uma empresa grande para virar parceiro de
+              vocês?</label
+            >
+            <div class="answer">
+              Não, você não precisa ser uma empresa grande para virar parceiro
+              do VICTUS. Entre em contato com a gente para melhores explicações.
+            </div>
           </div>
 
           <div class="question">
             <input type="checkbox" id="question-3" />
-            <label for="question-3">O que o VICTUS tem para oferecer aos parceiros?</label>
-            <div class="answer">Vamos oferecer descontos para shows, eventos e jogos para as pessoas que colaborarem com a coleta de lixo reciclável.</div>
+            <label for="question-3"
+              >O que o VICTUS tem para oferecer aos parceiros?</label
+            >
+            <div class="answer">
+              Vamos oferecer descontos para shows, eventos e jogos para as
+              pessoas que colaborarem com a coleta de lixo reciclável.
+            </div>
           </div>
         </div>
       </div>
@@ -107,6 +124,8 @@
       <div class="col-md-6 contents">
         <div class="mb-4">
           <h3>Crie sua conta no <strong>Victus</strong></h3>
+
+          <div class="alert alert-danger" role="alert" id="err" hidden></div>
         </div>
         <div style="color: white" action="register-company.php" method="post">
           <div class="form-group first">
@@ -168,11 +187,13 @@
           type: "POST",
           url: "https://victusreciclagem-api.herokuapp.com/company/create",
           contentType: "application/json",
-          error: function (data, status, xhr) {
-            console.log(data);
+          success: function (data, status, xhr) {
+            window.location.href = "../index.html";
           },
-        }).done(function () {
-          window.location.href = "../index.html";
+          error: function (data, status, xhr) {
+            $("#err").text(data.responseJSON.error);
+            $("#err").attr("hidden", false);
+          },
         });
       });
     </script>

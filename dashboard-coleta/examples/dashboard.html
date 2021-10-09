@@ -111,9 +111,8 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="card" style="max-width: 100%;">
               <div class="card-body">
                 <h5 class="card-title">Perfil</h5>
-                <p class="card-text">Nome</p>
-                <p class="card-text">Endereço</p>
-                <p class="card-text">Status</p>
+                <p class="card-text">Nome: <strong id="company_name"></strong></p>
+                <p class="card-text">Endereço: <strong id="city"></strong></p>
                 <a href="user.html" class="btn btn-success">Editar</a>
               </div>
             </div>
@@ -122,8 +121,8 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="card" style="max-width: 100%;">
               <div class="card-body">
                 <h5 class="card-title">Estatísticas</h5>
-                <p style="margin-top: 10%;" class="card-text">Pontos concedidos</p>
-                <p style="margin-bottom: 5%;" class="card-text">KGs coletados</p>
+                <p style="margin-top: 10%;" class="card-text">Pontos concedidos: <strong id="points"></strong></p>
+                <p style="margin-bottom: 5%;" class="card-text">KGs coletados <strong id="kgs"></strong></p>
               </div>
             </div>
           </div>
@@ -147,16 +146,8 @@ The above copyright notice and this permission notice shall be included in all c
           </div>
         </div>
         <h3 style="color: white; margin-top: 5%;">Últimos registros</h3>
-        <div class="row">
-          <div class="col-sm-3">
-            <div class="card" style="max-width: 100%;">
-              <div class="card-body">
-                <h5 class="card-title">Nome</h5>
-                <p class="card-text">qtde</p>
-                <p class="card-text">pnts</p>
-              </div>
-            </div>
-          </div>
+        <div class="alert alert-info" role="alert" id="last_registers_alert" hidden></div>
+        <div class="row" id="last_registers">
       </div>
 
    
@@ -203,7 +194,7 @@ The above copyright notice and this permission notice shall be included in all c
       type="text/javascript"
     ></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <!--
+  
     <script src="../assets/demo/demo.js"></script>
     <script>
       $("#logout").click(function () {
@@ -221,11 +212,10 @@ The above copyright notice and this permission notice shall be included in all c
           headers: { Authorization: "Bearer " + token },
           contentType: "application/json",
           success: function (data, status, xhr) {
-            document.getElementById("kgs").innerHTML+=`${data.received_pounds}`
-            document.getElementById("points").innerHTML+=`${data.given_points}`
-            document.getElementById("company_name").innerHTML+=`${data.name}`
-            document.getElementById("patio").innerHTML+=`${data.address.patio}`
-            document.getElementById("city").innerHTML+=`${data.address.city}`
+            $("#kgs").text(data.received_pounds);
+            $("#points").text(data.given_points);
+            $("#company_name").text(data.name);
+            $("#city").text(data.address.city);
           },
           error: function (data, status, xhr) {
             if (data.status == 401) {
@@ -233,6 +223,38 @@ The above copyright notice and this permission notice shall be included in all c
             }
           },
         });
+
+        $.ajax({
+          dataType: "json",
+          type: "GET",
+          url: "https://victusreciclagem-api.herokuapp.com/point/recent",
+          headers: { Authorization: "Bearer " + token },
+          contentType: "application/json",
+          success: function(data, status, xhr) {
+            data.forEach(transaction => {
+              const date = {
+                day: new Date(transaction.created_at).getDate(),
+                month: new Date(transaction.created_at).getMonth() + 1,
+                year: new Date(transaction.created_at).getFullYear()
+              }
+
+              const col = $('<div class="col-sm-3"></div>')
+              const card = $('<div class="card" style="max-width: 100%;"></div>').appendTo(col);
+              const card_body = $('<div class="card-body"></div>').appendTo(card);
+              const card_title = $(`<h5 class="card-title">Nome: ${transaction.user_receiver.name}</h5>`).appendTo(card_body);
+              const many_pounds = $(`<p class="card-text">Quantidade de pontos: ${transaction.points}</p>`).appendTo(card_body);
+              const many_points = $(`<p class="card-text">Data: ${date.day}/${date.month}/${date.year}</p>`).appendTo(card_body);
+  
+              col.appendTo("#last_registers")
+            })
+          },
+          error: function(data, status, xhr) {
+            if(data.status === 400) {
+              $("#last_registers_alert").text(data.responseJSON.error)
+              $("#last_registers_alert").attr("hidden", false)
+            }
+          }
+        })
       });
     </script>
     <script>
@@ -439,6 +461,6 @@ The above copyright notice and this permission notice shall be included in all c
       });
 
     </script>
- -->
+
   </body>
 </html>

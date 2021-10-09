@@ -148,7 +148,7 @@ The above copyright notice and this permission notice shall be included in all c
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
-                  >
+                  ></a>
                 </li>
               </ul>
             </div>
@@ -276,6 +276,24 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="../assets/demo/demo.js"></script>
   
     <script>
+      const token = sessionStorage.getItem("token");
+
+
+        $(document).ready(function () {
+          $.ajax({
+            dataType: "json",
+            type: "GET",
+            url: "https://victusreciclagem-api.herokuapp.com/point",
+            headers: { Authorization: "Bearer " + token },
+            contentType: "application/json",
+            error: function (data, status, xhr) {
+              if (data.status == 401) {
+                window.location.href = "../../401.html";
+              }
+            },
+          });
+        });
+
       $("#register_transaction").on("submit", function (e) {
         e.preventDefault();
         const pounds = +$("#kg").val();
@@ -286,7 +304,6 @@ The above copyright notice and this permission notice shall be included in all c
           pounds
         };
 
-
         $.ajax({
           dataType: "json",
           type: "POST",
@@ -295,7 +312,7 @@ The above copyright notice and this permission notice shall be included in all c
           headers: { Authorization: "Bearer " + token },
           contentType: "application/json",
           success: function (data, status, xhr) {
-            window.location.href = "./pontuacoes.html";
+            window.location.href = "./registros-pontuacoes.html";
           },
           error: function (data, status, xhr) {
             if (data.status == 401) {
@@ -314,52 +331,6 @@ The above copyright notice and this permission notice shall be included in all c
       const convertKgToPoints = (kg) => {
         return kg * 500;
       }
-
-      const token = sessionStorage.getItem("token");
-
-      $(document).ready(function () {
-        $.ajax({
-          dataType: "json",
-          type: "GET",
-          url: "https://victusreciclagem-api.herokuapp.com/point",
-          headers: { Authorization: "Bearer " + token },
-          contentType: "application/json",
-          error: function (data, status, xhr) {
-            if (data.status == 401) {
-              window.location.href = "../../401.html";
-            }
-          },
-        });
-      });
-
-      $("#edit_user").on("submit", (event) => {
-        event.preventDefault();
-
-        let name = $("#name").val();
-        let birthday = $("#birthday").val();
-
-        let data = {
-          name,
-          birthday: new Date(birthday)
-        }
-
-        $.ajax({
-          dataType: "json",
-          type: "PUT",
-          url: "https://victusreciclagem-api.herokuapp.com/user/edit",
-          data: JSON.stringify(data),
-          headers: { Authorization: "Bearer " + token },
-          contentType: "application/json",
-          success: function (data, status, xhr) {
-            location.reload();
-          },
-          error: function (data, status, xhr) {
-            if (data.status == 401) {
-              window.location.href = "../../401.html";
-            }
-          },
-        });
-      });
     </script>
   -->
   </body>

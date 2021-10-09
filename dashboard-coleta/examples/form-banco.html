@@ -146,7 +146,7 @@ The above copyright notice and this permission notice shall be included in all c
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
-                  >
+                  ></a>
                    
                   </a>
                   
@@ -283,52 +283,20 @@ The above copyright notice and this permission notice shall be included in all c
     <script>
       const token = sessionStorage.getItem("token");
 
+      $("#logout").click(function () {
+        sessionStorage.removeItem("token");
+        window.location.href="../../index.html";
+      });
+
       $(document).ready(function () {
         $.ajax({
           dataType: "json",
           type: "GET",
-          url: "https://victusreciclagem-api.herokuapp.com/user",
+          url: "https://victusreciclagem-api.herokuapp.com/point",
           headers: { Authorization: "Bearer " + token },
           contentType: "application/json",
           success: function (data, status, xhr) {
-            $("#email").val(data.email);
-            $("#name").val(data.name);
-            $("#card-name").text(data.name);
-            $("#CPF").val(data.CPF);
-            let date = new Date(data.birthday);
-            let day = ("0" + (date.getDate() + 1)).slice(-2);
-            let month = ("0" + (date.getMonth() + 1)).slice(-2);
-            var today = date.getFullYear()+"-"+(month)+"-"+(day) ;
-            $("#birthday").val(today);
-          },
-          error: function (data, status, xhr) {
-            if (data.status == 401) {
-              window.location.href = "../../401.html";
-            }
-          },
-        });
-      });
 
-      $("#edit_user").on("submit", (event) => {
-        event.preventDefault();
-
-        let name = $("#name").val();
-        let birthday = $("#birthday").val();
-
-        let data = {
-          name,
-          birthday: new Date(birthday)
-        }
-
-        $.ajax({
-          dataType: "json",
-          type: "PUT",
-          url: "https://victusreciclagem-api.herokuapp.com/user/edit",
-          data: JSON.stringify(data),
-          headers: { Authorization: "Bearer " + token },
-          contentType: "application/json",
-          success: function (data, status, xhr) {
-            location.reload();
           },
           error: function (data, status, xhr) {
             if (data.status == 401) {
