@@ -42,7 +42,7 @@
             
           </ul>
           <form style="margin-right: 5%;" class="form-inline mt-2 mt-md-0">
-            <a>Minha conta</a>
+            <a href="user.html" style="color: white" >Minha conta</a>
           </form>
         </div>
         </nav>
@@ -55,10 +55,10 @@
 
       <div style="width: 22rem; color: white;">
         <div class="card-body" style="margin-left: 10%;">
-          <h3 style="color: white;" class="card-title">Título</h3>
-          <h4 style="color: white;" class="card-subtitle mb-2">Empresa</h4>
-          <p class="card-text">Gênero</p>
-          <h4>Pontos necessários:</h4>
+          <h3 style="color: white;" class="card-title" id="title"></h3>
+          <h4 style="color: white;" class="card-subtitle mb-2" id="creator"></h4>
+          <p class="card-text">Gênero: <strong id="type"></strong></p>
+          <h4>Pontos necessários: <strong id="necessary_points"></strong></h4>
           <div style="margin-top: 60%;" class="row">
           <a href="#" style="color: black; margin-right: 2%;" class="btn btn-light">Salvar</a>
           <a href="#" style="color: black;" class="btn btn-light">Comprar</a>
@@ -69,38 +69,10 @@
 
       <div style="margin-top: 3%; color: white;">
         <h2>Detalhes</h2>
-        <p>[sobre o evento]</p>
+        <p id="details"></p>
 
       <div style="margin-top: 5%; color: white;">
-      <h2>Parecidos</h2>
-
-      <div class="card-group" style="width: 50%;">
-        <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-  <div class="card-body">
-    <div class="container">
-      <div class="row">
-    <h4 style="margin-right: 10%;"><strong>Manifestação</strong></h4> <h5><strong>14/06/2021</strong></h5>
-    </div>
-  </div>
-    <p class="card-text">Lutaremos pelos nossos direitos!</p>
-
-    <button type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</button>
-  </div>
-</div>
-
-<div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-  <div class="card-body">
-    <div class="container">
-      <div class="row">
-    <h4 style="margin-right: 10%;"><strong>Cover Tim Maia</strong></h4> <h5><strong>15/06/2021</strong></h5>
-    </div>
-  </div>
-    <p class="card-text">Venha cantar e sofrer!</p>
-
-    <button type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</button>
-  </div>
-</div>
-
+      
 
 </div>
     </div>
@@ -113,10 +85,85 @@
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/jquery.min.js"></script>
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!-- Plugin for the momentJs  -->
+    <script src="../assets/js/plugins/moment.min.js"></script>
+    <!--  Plugin for Sweet Alert -->
+    <script src="../assets/js/plugins/sweetalert2.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="../assets/js/plugins/jquery.validate.min.js"></script>
+    <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+    <!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+    <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
+    <!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+    <script src="../assets/js/plugins/fullcalendar.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="../assets/js/plugins/jquery-jvectormap.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="../assets/js/plugins/nouislider.min.js"></script>
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <!-- Library for adding dinamically elements -->
+    <script src="../assets/js/plugins/arrive.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <!-- Chartist JS -->
+    <script src="../assets/js/plugins/chartist.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script
+      src="../assets/js/material-dashboard.js?v=2.1.2"
+      type="text/javascript"
+    ></script>
+    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+    <script src="../assets/demo/demo.js"></script>
+    <script>
+      //Assuming URL has "?post=1234&action=edit"
+
+      $(document).ready(function () {
+        var urlParams = new URLSearchParams(window.location.search);
+        const hasParam = urlParams.has('evento_id');
+        const param = urlParams.get('evento_id');
+
+        if(hasParam) {  
+          $.ajax({
+          dataType: "json",
+          type: "GET",
+          url: `https://victusreciclagem-api.herokuapp.com/event/${param}`,
+          contentType: "application/json",
+          success: function (data, status, xhr) {
+            $("#title").text(data.name);
+            $("#creator").text(data.creator.name);
+            $("#type").text(data.type.name);
+            $("#necessary_points").text(data.necessary_points);
+            $("#details").text(data.details)
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 400) {
+              alert(data.responseJSON.error)
+              window.location.href = "../../index.html";
+            }
+          },
+        });
+        } else {
+          // redirect to home;
+        }
+      })
+
+    </script>
   </body>
 </html>

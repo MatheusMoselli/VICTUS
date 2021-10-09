@@ -141,7 +141,7 @@ The above copyright notice and this permission notice shall be included in all c
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
-                  >
+                  ></a>
                 </li>
               </ul>
             </div>
@@ -184,7 +184,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 
                 <h3 style="margin-top: 15%; margin-left: 5%; color: white;">Salvos</h3>
-            <div class="card-group" style="width: 350%;" id="saveds">
+            <div class="card-group" style="width: 350%;" id="saved">
     
       </div>
       
@@ -310,19 +310,15 @@ The above copyright notice and this permission notice shall be included in all c
               const month = date.getMonth() + 1;
               const year = date.getFullYear();
 
-              $("#saveds").append(`
-              <div class="card" style="margin-top: 3%; margin-left: 5%; background-color: #4cafa0; color: black;">
-                <div class="card-body">
-                    <div class="container">
-                      <div class="row">
-                    <h4 style="margin-right: 10%;"><strong>${event_receiver.name}</strong></h4> <h5><strong>${day}/${month}/${year}</strong></h5>
-                    </div>
-                  </div>
-                    <p class="card-text">Pontos necessários: ${event_receiver.necessary_points}</p>
-                  </div>
-                </div>
-              </div>
-              `);
+              const card = $(`<div style="margin-top: 3%; margin-left: 5%; background-color:#4cafa0; color: black; padding: 15px"></div>`);
+              const container = $('<div class="container"></div>').appendTo(card);
+              const row = $('<div class="row"></div>').appendTo(container);
+              const h4 = $(`<h4 style="margin-right: 10%;"><strong>${event_receiver.name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>`).appendTo(row);
+              const p = $(`<p class="card-text">Pontos necessários: ${event_receiver.necessary_points}</p>`).appendTo(row);
+              const link = $(`<a href="pag-evento.html?evento_id=${event_receiver._id}" type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</a>`).appendTo(row);
+
+
+              card.appendTo("#saved");
             })
           },
           error: function (data, status, xhr) {
@@ -363,28 +359,15 @@ The above copyright notice and this permission notice shall be included in all c
               const day = date.getDate();
               const month = date.getMonth() + 1;
               const year = date.getFullYear();
-              let div = document.createElement("div");
-              div.classList.add="card"
-              div.style.marginTop="3%";
-              div.style.marginLeft="5%";
-              div.style.backgroundColor="#4cafa0";
-              div.style.color="black";
-              div.innerHTML=`
-                <div class="card-body">
-                  <div class="container">
-                    <div class="row">
-                      <h4 style="margin-right: 10%;"><strong>${obj.event[0].name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              `;
-            
 
-                $(`#${obj._id}`).on("click", function () {
-                  // do stuff
-                })
-            document.getElementById("em_alta").appendChild(div);
+              const card = $(`<div style="margin-top: 3%; margin-left: 5%; background-color:#4cafa0; color: black; padding: 15px"></div>`);
+              const container = $('<div class="container"></div>').appendTo(card);
+              const row = $('<div class="row"></div>').appendTo(container);
+              const h4 = $(`<h4 style="margin-right: 10%;"><strong>${obj.event[0].name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>`).appendTo(row);
+              const link = $(`<a href="pag-evento.html?evento_id=${obj.event[0]._id}" type="button" class="btn btn-light" style="color: black; background-color: white;">Ir</a>`).appendTo(row);
+
+
+              card.appendTo("#em_alta");
           })
         }
         })

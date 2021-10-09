@@ -34,7 +34,7 @@
               <div class="mb-4">
               <h3>Faça login no <strong>Victus</strong></h3>
               <p class="mb-4">Continue juntando seus pontos para ir em eventos!</p>
-              <p class="mb-4" id="err"></p>
+              <div class="alert alert-danger" role="alert" id="err" hidden></div>
             </div>
             <div>
               <div class="form-check">
@@ -114,7 +114,8 @@
                 window.location.href="../dashboard-cliente/examples/dashboard.html"
               },
               error: function(data, status, xhr) {
-                $("#err").text(data.responseJSON.error);
+                $("#err").text(data.responseJSON.error)
+                $("#err").attr("hidden", false);
               }
             })
             break;
@@ -130,7 +131,8 @@
                   window.location.href="../dashboard-parceiro/examples/dashboard.html"
                 },
                 error: function(data, status, xhr) {
-                  $("#err").text(data.responseJSON.error);
+                  $("#err").text(data.responseJSON.error)
+                  $("#err").attr("hidden", false);
                 }
               })
             break;
@@ -146,7 +148,8 @@
                 window.location.href="../dashboard-coleta/examples/dashboard.html"
               },
               error: function(data, status, xhr) {
-                $("#err").text(data.responseJSON.error);
+                $("#err").text(data.responseJSON.error)
+                $("#err").attr("hidden", false);
               }
             })
             break;
