@@ -217,7 +217,8 @@ The above copyright notice and this permission notice shall be included in all c
                const h4 = $(`<h4 style="margin-right: 10%"><strong>${obj.name}</strong></h4>`).appendTo(row);
                const h5 = $(`<h5><strong>${date}</strong></h5>  `).appendTo(row);
                const details = $(`<p>${obj.details}</p>`).appendTo(row);
-               const p = $(`<p class="card-text">${obj.address.city}</p>`).appendTo(row);
+               const many_participants = $(`<p>Quantidade de participantes: ${obj.many_participants}</p>`).appendTo(row);
+               const p = $(`<p class="card-text">Cidade: ${obj.address.city}</p>`).appendTo(row);
                const editar = $(`<a href="editarevento/index.html?evento_id=${obj._id}" style="margin-left: 6%; color: white;"  class="btn btn-success">Editar</a>`).appendTo(row);
  
  
