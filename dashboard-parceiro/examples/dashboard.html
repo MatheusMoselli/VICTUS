@@ -123,7 +123,7 @@ The above copyright notice and this permission notice shall be included in all c
           </div>
         </div>
         <h3 style="color: white; margin-top: 5%;">Eventos registrados</h3>
-          <div class="card-group" style="width: 350%;" id="created_events">
+          <div class="card-group" style="width: 200%;" id="created_events">
         <div class="alert alert-info" role="alert" id="created_events_alert" hidden></div>
       </div>
 
@@ -210,7 +210,7 @@ The above copyright notice and this permission notice shall be included in all c
              data.forEach(obj => {
                let [date, time] = obj.date.split("T");
                
-               const div = $('<div class="card" style="margin-top: 2%; background-color: white; color: black; border-radius: 10%;"></div>');
+               const div = $('<div class="card" style="margin-top: 2%; background-color: white; color: black;"></div>');
                const div_body = $('<div class="card-body"></div>').appendTo(div);
                const container = $('<div class="container"></div>').appendTo(div_body);
                const row = $('<div class="row"></div>').appendTo(container);
