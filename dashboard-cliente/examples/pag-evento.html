@@ -61,7 +61,7 @@
           <h4>Pontos necessários: <strong id="necessary_points"></strong></h4>
           <div style="margin-top: 60%;" class="row">
           <a href="#" style="color: black; margin-right: 2%;" class="btn btn-light">Salvar</a>
-          <a href="#" style="color: black;" class="btn btn-light">Comprar</a>
+          <a href="#" style="color: black;" class="btn btn-light" id="buy">Comprar</a>
         </div>
         </div>
         </div>
@@ -132,13 +132,12 @@
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="../assets/demo/demo.js"></script>
     <script>
-      //Assuming URL has "?post=1234&action=edit"
+      const urlParams = new URLSearchParams(window.location.search);
+      const hasParam = urlParams.has('evento_id');
+      const param = urlParams.get('evento_id');
+      const token = sessionStorage.getItem("token");
 
       $(document).ready(function () {
-        var urlParams = new URLSearchParams(window.location.search);
-        const hasParam = urlParams.has('evento_id');
-        const param = urlParams.get('evento_id');
-
         if(hasParam) {  
           $.ajax({
           dataType: "json",
@@ -162,6 +161,34 @@
         } else {
           window.location.href = "../../index.html";
         }
+      })
+
+      $("#buy").on("click", function() {
+        const data = {
+          event_id: param
+        }
+
+        $.ajax({
+          dataType: "json",
+          type: "POST",
+          data: JSON.stringify(data),
+          url: `https://victusreciclagem-api.herokuapp.com/events/ticket`,
+          headers: { Authorization: "Bearer " + token },
+          contentType: "application/json",
+          success: function (data, status, xhr) {
+            alert("Ingresso comprado com sucesso!");
+            window.location.href = "dashboard.html";
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 400) {
+              alert(data.responseJSON.error)
+              window.location.href = "dashboard.html";
+            } else if (data.status == 401) {
+              sessionStorage.removeItem("token");
+              window.location.href = "../../index.html";
+            }
+          },
+        });
       })
 
     </script>
