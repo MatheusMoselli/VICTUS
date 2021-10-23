@@ -250,7 +250,7 @@ The above copyright notice and this permission notice shall be included in all c
               const row = $('<div class="row"></div>').appendTo(container);
               const h4 = $(`<h4 style="margin-right: 10%;"><strong>${event.name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>`).appendTo(row);
               const p = $(`<p class="card-text">Pontos necessários: ${event.necessary_points}</p>`).appendTo(row);
-              const link = $(`<a href="pag-evento.html?evento_id=${event._id}" type="button" class="btn btn-success" style="color: black; background-color: white;">Ver</a>`).appendTo(row);
+              const link = $(`<a href="pag-evento.html?evento_id=${event._id}" type="button" class="btn btn-success" style="color: black; background-color: green;">Ver</a>`).appendTo(row);
 
 
               card.appendTo("#tickets");
@@ -284,7 +284,7 @@ The above copyright notice and this permission notice shall be included in all c
               const row = $('<div class="row"></div>').appendTo(container);
               const h4 = $(`<h4 style="margin-right: 10%;"><strong>${event_receiver.name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>`).appendTo(row);
               const p = $(`<p class="card-text">Pontos necessários: ${event_receiver.necessary_points}</p>`).appendTo(row);
-              const link = $(`<a href="pag-evento.html?evento_id=${event_receiver._id}" type="button" class="btn btn-success" style="color: black; background-color: white;">Ver</a>`).appendTo(row);
+              const link = $(`<a href="pag-evento.html?evento_id=${event_receiver._id}" type="button" class="btn btn-success" style="color: black; background-color: green;">Ver</a>`).appendTo(row);
 
 
               card.appendTo("#saved");
@@ -320,7 +320,7 @@ The above copyright notice and this permission notice shall be included in all c
               const h4 = $(`<h4 style="margin-right: 10%;"><strong>${event.name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>`).appendTo(row);
               const param = $(`<p style="margin-right: 10%; width: 100%;">${event.details}</p>`).appendTo(row);
               const p = $(`<p class="card-text">Pontos necessários: ${event.necessary_points}</p>`).appendTo(row);
-              const link = $(`<a href="pag-evento.html?evento_id=${event._id}" type="button" class="btn btn-success" style="color: black; background-color: white;">Ver</a>`).appendTo(row);
+              const link = $(`<a href="pag-evento.html?evento_id=${event._id}" type="button" class="btn btn-success" style="color: black; background-color: green;">Ver</a>`).appendTo(row);
 
 
               card.appendTo("#all_events");
@@ -366,7 +366,7 @@ The above copyright notice and this permission notice shall be included in all c
               const container = $('<div class="container"></div>').appendTo(card);
               const row = $('<div class="row"></div>').appendTo(container);
               const h4 = $(`<h4 style="margin-right: 10%;"><strong>${obj.event[0].name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>`).appendTo(row);
-              const link = $(`<a href="pag-evento.html?evento_id=${obj.event[0]._id}" type="button" class="btn btn-success" style="color: black; background-color: white;">Ir</a>`).appendTo(row);
+              const link = $(`<a href="pag-evento.html?evento_id=${obj.event[0]._id}" type="button" class="btn btn-success" style="color: black; background-color: green;">Ir</a>`).appendTo(row);
 
 
               card.appendTo("#em_alta");
