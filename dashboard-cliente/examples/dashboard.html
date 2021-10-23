@@ -179,7 +179,7 @@ The above copyright notice and this permission notice shall be included in all c
                   <h3 style="margin-left: 10%;">Olá,</h3>
                   <h3 style="margin-top: 5%; margin-left: 10%;" id="name">.</h3>
                   <h3 style="margin-left: 10%;">partiu reciclar?</h3>
-                  <h3 style="margin-bottom: 5%; margin-left: 10%;" id="points"></h3>
+                  <h3 style="margin-bottom: 5%; margin-left: 10%;"><span id="points"></span> pontos</h3> 
                 </div>
 
 
@@ -197,6 +197,11 @@ The above copyright notice and this permission notice shall be included in all c
       
       <h3 style="margin-top: 10%; margin-left: 5%; color: white;">Eventos em alta</h3>
       <div class="card-group" style="width: 350%;" id="em_alta">
+      </div>
+
+      <h3 style="margin-top: 15%; margin-left: 5%; color: white;">Todos os eventos</h3>
+      <div class="card-group" style="width: 350%;" id="all_events">
+    
       </div>
 <!--
               <div class="col-lg-3 col-md-6 col-sm-6">
@@ -311,8 +316,8 @@ The above copyright notice and this permission notice shall be included in all c
           contentType: "application/json",
           success: function (data, status, xhr) {
             data.forEach(obj => {
-              const { event_receiver } = obj;
-              const date = new Date(event_receiver.date);
+              const { event_receiver: event } = obj;
+              const date = new Date(event.date);
               const day = date.getDate();
               const month = date.getMonth() + 1;
               const year = date.getFullYear();
@@ -320,9 +325,9 @@ The above copyright notice and this permission notice shall be included in all c
               const card = $(`<div style="margin-top: 3%; margin-left: 5%; background-color:#4cafa0; color: black; padding: 15px"></div>`);
               const container = $('<div class="container"></div>').appendTo(card);
               const row = $('<div class="row"></div>').appendTo(container);
-              const h4 = $(`<h4 style="margin-right: 10%;"><strong>${event_receiver.name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>`).appendTo(row);
-              const p = $(`<p class="card-text">Pontos necessários: ${event_receiver.necessary_points}</p>`).appendTo(row);
-              const link = $(`<a href="pag-evento.html?evento_id=${event_receiver._id}" type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</a>`).appendTo(row);
+              const h4 = $(`<h4 style="margin-right: 10%;"><strong>${event.name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>`).appendTo(row);
+              const p = $(`<p class="card-text">Pontos necessários: ${event.necessary_points}</p>`).appendTo(row);
+              const link = $(`<a href="pag-evento.html?evento_id=${event._id}" type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</a>`).appendTo(row);
 
 
               card.appendTo("#tickets");
@@ -369,6 +374,39 @@ The above copyright notice and this permission notice shall be included in all c
 
             $("#saved_warning").text(data.responseJSON.error);
             $("#saved_warning").attr("hidden", false);
+          },
+        });
+
+        $.ajax({
+          dataType: "json",
+          type: "GET",
+          url: "https://victusreciclagem-api.herokuapp.com/events",
+          headers: { Authorization: "Bearer " + token },
+          contentType: "application/json",
+          success: function (data, status, xhr) {
+            console.log(data);
+            data.forEach(event => {
+              const date = new Date(event.date);
+              const day = date.getDate();
+              const month = date.getMonth() + 1;
+              const year = date.getFullYear();
+
+              const card = $(`<div style="margin-top: 3%; margin-left: 5%; background-color:#4cafa0; color: black; padding: 15px"></div>`);
+              const container = $('<div class="container"></div>').appendTo(card);
+              const row = $('<div class="row"></div>').appendTo(container);
+              const h4 = $(`<h4 style="margin-right: 10%;"><strong>${event.name}</strong> ${day}/${month < 10 ? "0" + month : month}/${year}</h4>`).appendTo(row);
+              const param = $(`<p style="margin-right: 10%; width: 100%;">${event.details}</p>`).appendTo(row);
+              const p = $(`<p class="card-text">Pontos necessários: ${event.necessary_points}</p>`).appendTo(row);
+              const link = $(`<a href="pag-evento.html?evento_id=${event._id}" type="button" class="btn btn-light" style="color: black; background-color: white;">Ver</a>`).appendTo(row);
+
+
+              card.appendTo("#all_events");
+            })
+          },
+          error: function (data, status, xhr) {
+            if (data.status == 401) {
+              window.location.href = "../../index.html";
+            }
           },
         });
 
