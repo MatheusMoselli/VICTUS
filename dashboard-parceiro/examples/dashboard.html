@@ -211,7 +211,7 @@ The above copyright notice and this permission notice shall be included in all c
                let [date, time] = obj.date.split("T");
                
                const div = $('<div class="card" style="margin-top: 2%; margin-left: 1%; background-color: white; color: black;"></div>');
-               const div_body = $('<div class="card-body" style="max-height: 5%;"></div>').appendTo(div);
+               const div_body = $('<div class="card-body"></div>').appendTo(div);
                const container = $('<div class="container"></div>').appendTo(div_body);
                const row = $('<div class="row"></div>').appendTo(container);
                const h4 = $(`<h4 style="margin-right: 10%"><strong>${obj.name}</strong></h4>`).appendTo(row);
